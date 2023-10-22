@@ -5,7 +5,7 @@ enviar.addEventListener("click", function()
 {
     if (formulario.username.value && formulario.password.value) 
     {
-        window.location.replace = "etecsa.cu";
+        window.location.href = "etecsa.cu";
     } 
     else 
     {
