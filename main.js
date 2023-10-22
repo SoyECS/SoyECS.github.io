@@ -6,10 +6,10 @@ enviar.addEventListener("click", function()
     if (formulario.username.value && formulario.password.value) 
     {
         alert("Probando");
-        window.location.href = "soyecs.github.io/body.html";
+        window.location.href = "https://SoyECS.github.io/body.html";
     } 
     else 
     {
-        
+        alert("Completa los campos");
     }
 })
