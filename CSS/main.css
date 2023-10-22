@@ -148,27 +148,23 @@ main{
         flex-direction: column;
         margin: auto;
     }
-}
-#formulario input[type="text"], input[type="password"]{
-    outline: 0;
-    border: 1px solid #ccc;
-    width: 80%;
-    padding: 5px;
-    color: black;
-}
 
-#enviar {
+    .caja_trasera div {
+        margin: 0px;
+        position: absolute;
+    }
     
-    position: absolute;
-    bottom: 185px;
-    outline: 0;
-    border: 0;
-    background-color: royalblue;
-    border-radius: 20px;
-    width:  230px;
-    text-align: center;
-    color: #fff;
-    font-weight: 500;
-    padding: 5px;
+    /*formulario*/
+
+    .contenedor_login-register{
+    
+        top: 10px;
+        left: -5px;
+        margin: auto;
+    }
+    
+    .contenedor_login-register {
+        position: relative;
+    }
 }
 
