@@ -5,7 +5,7 @@ enviar.addEventListener("click", function()
 {
     if (formulario.username.value && formulario.password.value) 
     {
-        window.location.href = "https://SoyECS.github.io/body.html";
+        window.location.replace = "https://SoyECS.github.io/body.html";
     } 
     else 
     {
