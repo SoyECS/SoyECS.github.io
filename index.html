@@ -1,42 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Page Title</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='CSS/main.css'>
-    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login y Register - MagtimusPro</title>
+    <link rel="stylesheet" href="CSS/main.css">
+</head>
 <body>
 
         <main>
 
-            <div class="contenedor_todo">
-                <div class="caja_trasera">
-                    <div class="caja_trasera-login">
-                        <h3>¿Ya tienes una cuenta?</h3>
-                        <p>Inicia sesión para entrar en la página</p>
-                        <button id="btn_iniciar-sesion">Iniciar Sesión</button>
+            <div class="contenedor__todo">
+                <div class="caja__trasera">
+                    <div class="caja__trasera-login">
+                        <h3>Si ya tienes una cuenta</h3>
+                        <p id="p1">¡Inicia sesión¡</p>
+                        <button id="btn__iniciar-sesion">Iniciar Sesión</button>
                     </div>
-                    <div class="caja_trasera-register">
-                        <h3>¿Aún no tienes una cuenta?</h3>
-                        <p>Regístrate para que puedas iniciar sesión</p>
-                        <button id="btn_registrarse">Regístrarse</button>
+                    <div class="caja__trasera-register">
+                      <h3>¿Aún no tienes una cuenta?</h3>
+                        <p id="p2">¡Creala entonces!</p>
+                        <button id="btn__registrarse">Regístrarse</button>
                     </div>
                 </div>
 
+                
+
                 <!--Formulario de Login y registro-->
-                <div class="contenedor_login-register">
+                <div class="contenedor__login-register">
                     <!--Login-->
-                    <form action="" class="formulario_login">
+                    <form action="" class="formulario__login">
                         <h2>Iniciar Sesión</h2>
-                        <input type="text" placeholder="Usuario">
+                        <input type="text" placeholder="Correo Electronico">
                         <input type="password" placeholder="Contraseña">
                         <button>Entrar</button>
                     </form>
 
                     <!--Register-->
-                    <form action="" class="formulario_register">
+                    <form action="" class="formulario__register">
                         <h2>Regístrarse</h2>
                         <input type="text" placeholder="Usuario">
                         <input type="password" placeholder="Contraseña">
@@ -47,11 +48,6 @@
 
         </main>
 
-    <style>
-        body {
-            background-image: url("img/fondo.jpg");
-        }
-    </style>
-       <script src='JS/main.js'></script>
+        <script src="JS/login.js"></script>
 </body>
 </html>
