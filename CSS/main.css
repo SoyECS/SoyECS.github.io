@@ -18,6 +18,7 @@ body {
     flex-direction: column;
     box-shadow: 7px 4px 7px 7px #242424;
     border-radius: 10px;
+    font-weight: bold
 }
 
 #formulario input[type="text"], input[type="password"]{
