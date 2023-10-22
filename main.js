@@ -5,6 +5,7 @@ enviar.addEventListener("click", function()
 {
     if (formulario.username.value && formulario.password.value) 
     {
+        alert("Probando");
         window.location.href = "soyecs.github.io/body.html";
     } 
     else 
