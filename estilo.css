@@ -60,6 +60,7 @@ body {
   gap: 4px;
   margin-bottom: 12px;
   text-decoration: none;
+  text-align: center;
 }
 .biz-location svg { width: 13px; height: 13px; flex-shrink: 0; }
 .biz-desc {
