@@ -1,140 +1,257 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Waos — Menú</title>
-  <link rel="stylesheet" href="estilo.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ============================================================
+       TÍTULO DE LA PESTAÑA DEL NAVEGADOR
+       Cambia "Mi Negocio" por el nombre real de tu negocio
+       ============================================================ -->
+  <title>Mi Negocio</title>
+
+  <!-- Fuentes de Google (no necesitas cambiar esto) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+
+  <!-- Enlace al archivo de estilos -->
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
-  <!-- ══════════════════════════════════
-       PORTADA
-       Opción A: pon la URL de tu foto entre las comillas del src
-       Opción B: si no tienes foto, deja el cover-placeholder con un emoji
-       ══════════════════════════════════ -->
-  <div class="cover">
-    <img src="portada.jpeg">  
-  </div>
+  <!-- ============================================================
+       SECCIÓN: CABECERA / HERO DEL NEGOCIO
+       ============================================================ -->
+  <header class="site-header">
 
-
-  <!-- ══════════════════════════════════
-       INFORMACIÓN DEL NEGOCIO
-       Cambia el nombre, descripción y ubicación
-       ══════════════════════════════════ -->
-  <!--
-  <div class="biz-header">
-
-    <div class="biz-rating">
-      <span class="stars">★★★★★</span>
-      <span>5.0</span>
-      <span class="dot">·</span>
-      <span>Sin reseñas aún</span>
+    <!-- ----------------------------------------------------------
+         FOTO DEL NEGOCIO (banner / portada)
+         Reemplaza "https://placehold.co/1200x400/2d2d2d/888?text=Tu+Foto+Aquí"
+         con la ruta a tu propia imagen, por ejemplo: "imagenes/portada.jpg"
+         ---------------------------------------------------------- -->
+    <div class="hero-image-wrapper">
+      <img
+        src="img/cover.jpg"
+        alt="Foto del negocio"
+        class="hero-image"
+      />
+      <!-- Capa oscura decorativa sobre la imagen (se controla desde CSS) -->
+      <div class="hero-overlay"></div>
     </div>
--->
-    <h1 class="biz-name">Plantilla General</h1>
 
-    <a class="biz-location" href="#info">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
-        <circle cx="12" cy="9" r="2.5"/>
-      </svg>
-      Reparto José Martí 
-    </a>
+    <!-- ----------------------------------------------------------
+         NOMBRE DEL NEGOCIO
+         Cambia el texto entre las etiquetas <span> por el nombre real
+         ---------------------------------------------------------- -->
+    <div class="business-name-wrap">
+      <h1 class="business-name">
+        <span class="name-main">Dairy & Marco</span>
+        <span class="name-sub">Sabor &amp; Tradición</span>
+      </h1>
+    </div>
 
-    <p class="biz-desc">
-      Plantilla general para probar como se vería la web en funcionamiento.
+  </header>
+  <!-- FIN: CABECERA -->
+
+
+  <!-- ============================================================
+       SECCIÓN: MENÚ DE CATEGORÍAS
+       Los botones cambian la categoría activa (Comida / Bebidas / Otros)
+       NO necesitas tocar este bloque salvo que quieras renombrar alguna
+       categoría; si lo haces, también actualiza el atributo data-category
+       en los artículos de productos más abajo.
+       ============================================================ -->
+  <nav class="category-nav" role="tablist" aria-label="Categorías del menú">
+
+    <!-- Botón Comida — data-target debe coincidir con data-category de los productos -->
+    <button
+      class="cat-btn active"
+      data-target="dulces"
+      role="tab"
+      aria-selected="true"
+      aria-controls="product-grid"
+    >
+      Dulces
+    </button>
+
+    <!-- Botón Bebidas -->
+    <button
+      class="cat-btn"
+      data-target="bebidas"
+      role="tab"
+      aria-selected="false"
+      aria-controls="product-grid"
+    >
+      Bebidas
+    </button>
+
+    <!-- Botón Otros -->
+    <button
+      class="cat-btn"
+      data-target="otros"
+      role="tab"
+      aria-selected="false"
+      aria-controls="product-grid"
+    >
+      Otros
+    </button>
+
+  </nav>
+  <!-- FIN: MENÚ DE CATEGORÍAS -->
+
+
+  <!-- ============================================================
+       SECCIÓN: CUADRÍCULA DE PRODUCTOS
+       Cada <article> es un producto. Puedes copiar y pegar un bloque
+       completo para agregar más productos.
+       ============================================================ -->
+  <main id="product-grid" class="product-grid" role="tabpanel">
+
+    <!-- ==========================================================
+         ★ PRODUCTOS — CATEGORÍA: COMIDA
+         data-category="comida" los vincula al botón Comida
+         ========================================================== -->
+
+    <!-- PRODUCTO 1 — COMIDA -->
+    <article class="product-card" data-category="dulces">
+      <!-- Imagen del producto:
+           Reemplaza el src por la ruta de tu imagen, ej: "imagenes/tacos.jpg"
+           Cambia el alt por una descripción real del platillo -->
+      <img
+        src="img/maniC.jpg"
+        alt=""
+        class="product-img"
+      />
+      <div class="product-info">
+        <!-- Nombre del producto -->
+        <h2 class="product-name">Maní Cocinado</h2>
+        <!-- Precio del producto -->
+        <p class="product-price">$130.00</p>
+      </div>
+    </article>
+    
+    <!-- Segundo Producto ----------------------->
+    <article class="product-card" data-category="dulces">
+      <!-- Imagen del producto:
+           Reemplaza el src por la ruta de tu imagen, ej: "imagenes/tacos.jpg"
+           Cambia el alt por una descripción real del platillo -->
+      <img
+        src="img/maniC.jpg"
+        alt=""
+        class="product-img"
+      />
+      <div class="product-info">
+        <!-- Nombre del producto -->
+        <h2 class="product-name">Maní Molido</h2>
+        <!-- Precio del producto -->
+        <p class="product-price">$110.00</p>
+      </div>
+    </article>
+
+    <!-- ==========================================================
+         ★ PRODUCTOS — CATEGORÍA: BEBIDAS
+         ========================================================== -->
+
+    <!-- PRODUCTO 1 — BEBIDAS -->
+    <article class="product-card" data-category="bebidas">
+      <img
+        src=""
+        alt=""
+        class="product-img"
+      />
+      <div class="product-info">
+        <h2 class="product-name">Refresco de Lata</h2>
+        <p class="product-price">$250.00</p>
+      </div>
+    </article>
+
+    <!-- ==========================================================
+         ★ PRODUCTOS — CATEGORÍA: OTROS
+         ========================================================== -->
+
+    <!-- PRODUCTO 1 — OTROS -->
+    <article class="product-card" data-category="otros">
+      <img
+        src=""
+        alt=""
+        class="product-img"
+      />
+      <div class="product-info">
+        <h2 class="product-name">Salsa Casera</h2>
+        <p class="product-price">$40.00</p>
+      </div>
+    </article>
+    
+  </main>
+  <!-- FIN: CUADRÍCULA DE PRODUCTOS -->
+
+
+  <!-- ============================================================
+       SECCIÓN: PIE DE PÁGINA — DIRECCIÓN Y TELÉFONO
+       Cambia los textos dentro de los <span> por tus datos reales
+       ============================================================ -->
+  <footer class="site-footer">
+
+    <!-- Icono + dirección -->
+    <p class="footer-item">
+      <span class="footer-icon">📍</span>
+      <!-- CAMBIA AQUÍ la dirección de tu negocio -->
+      <span>Reparto José Martí</span>
     </p>
 
-  </div>
-
-
-  <!-- ══════════════════════════════════
-       PRODUCTOS
-       Copia el bloque <div class="item">...</div>
-       para añadir más productos.
-       ══════════════════════════════════ -->
-  <div class="menu-body">
-
-    <!-- PRODUCTO 1 — edita nombre, precio e imagen -->
-    <div class="item">
-      <img
-        class="item-img"
-        <img class="item-img" src="fotos/img.jpg"
-      >
-      <div class="item-info">
-        <div class="item-name">Maní_molido</div>
-        <div class="item-price">120</div>
-      </div>
-    </div>
-
-    <!-- Para añadir más productos, copia el bloque de arriba aquí abajo -->
-    
-    <div class="item">
-      <img
-        class="item-img"
-        src="fotos/img.jpg"
-        alt="Nombre del producto"
-      >
-      <div class="item-info">
-        <div class="item-name">Maní Cocinado</div>
-        <div class="item-price">150</div>
-      </div>
-    </div>
-
-  </div>
-
-
-  <!-- ══════════════════════════════════
-       PIE DE PÁGINA
-       Cambia teléfono, correo y redes
-       ══════════════════════════════════ -->
-  <footer class="footer" id="info">
-
-    <div class="footer-logo"></div>
-    <div class="footer-location">Reparto José Martí</div>
-
-    <div class="footer-contacts">
-      <a href="https://wa.me/59638868+hola">
-        <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15">
-          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
-          <path d="M11.998 2C6.477 2 2 6.477 2 12c0 1.89.525 3.658 1.438 5.168L2 22l4.932-1.418A9.952 9.952 0 0 0 11.998 22C17.52 22 22 17.523 22 12S17.52 2 11.998 2zm0 18a7.96 7.96 0 0 1-4.072-1.111l-.292-.173-3.035.872.85-3.025-.19-.307A7.968 7.968 0 0 1 4 12c0-4.418 3.58-8 7.998-8C16.42 4 20 7.582 20 12s-3.58 8-8.002 8z"/>
-        </svg>
-        +53 59638868
-      </a>
-      <a href="tel:+59638868">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15">
-          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.5 19.79 19.79 0 0 1 1.61 4.9 2 2 0 0 1 3.6 2.7h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 10.9a16 16 0 0 0 6.07 6.07l1.27-.96a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-        </svg>
-        +53 59638868
-      </a>
-      <a href="mailto:tucorreo@email.com">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokestar-width="2" width="15" height="15">
-          <rect x="2" y="4" width="20" height="16" rx="2"/>
-          <path d="m22 7-10 7L2 7"/>
-        </svg>
-        <!--  tucorreo@email.com-->
-      </a>
-    </div>
-
-    <div class="footer-social">
-      <a href="https://instagram.com/TUNEGOCIO" aria-label="Instagram">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="22" height="22">
-          <rect x="2" y="2" width="20" height="20" rx="5"/>
-          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
-        </svg>
-      </a>
-      <a href="https://facebook.com/TUNEGOCIO" aria-label="Facebook">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="22" height="22">
-          <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
-        </svg>
-      </a>
-    </div>
-
-    <div class="footer-copy">© 2026 Mi Negocio — Todos los derechos reservados</div>
+    <!-- Icono + teléfono -->
+    <p class="footer-item">
+      <span class="footer-icon">📞</span>
+      <!-- CAMBIA AQUÍ tu número de teléfono -->
+      <span>+53 59638868</span>                      
+    </p>
 
   </footer>
+  <!-- FIN: PIE DE PÁGINA -->
+
+
+  <!-- ============================================================
+       JAVASCRIPT INLINE MÍNIMO
+       Solo se encarga de mostrar/ocultar productos al hacer clic
+       en los botones del menú. No necesitas modificarlo.
+       ============================================================ -->
+      
+  <script>
+    // Seleccionamos todos los botones de categoría
+    const buttons = document.querySelectorAll('.cat-btn');
+    // Seleccionamos todas las tarjetas de producto
+    const cards   = document.querySelectorAll('.product-card');
+
+    buttons.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+
+        // 1. Quitar la clase "active" de todos los botones
+        buttons.forEach(function(b) {
+          b.classList.remove('active');
+          b.setAttribute('aria-selected', 'false');
+        });
+
+        // 2. Marcar el botón pulsado como activo
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+
+        // 3. Obtener la categoría del botón pulsado
+        var target = btn.getAttribute('data-target');
+
+        // 4. Mostrar solo los productos de esa categoría
+        cards.forEach(function(card) {
+          if (card.getAttribute('data-category') === target) {
+            card.classList.remove('hidden');
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+
+      });
+    });
+    
+  </script>
 
 </body>
 </html>
