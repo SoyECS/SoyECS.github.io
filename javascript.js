@@ -224,3 +224,151 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 });
+
+/* ================================================================
+   SISTEMA DE LOGIN POR URL ESPECIAL
+   ================================================================ */
+
+// Configuración
+const ADMIN_SECRET = 'adminmarco';  // ← Cambia esto por la palabra clave que quieras
+const ADMIN_PASSWORD = 'admin123';  // ← Cambia esto por la contraseña que quieras
+
+// Elementos del login
+var loginBackdrop = document.getElementById('login-backdrop');
+var loginClose = document.getElementById('login-close');
+var loginSubmit = document.getElementById('login-submit-btn');
+var adminPassword = document.getElementById('admin-password');
+var loginError = document.getElementById('login-error');
+var adminFab = document.getElementById('admin-fab');
+
+/* ── 1. DETECTAR URL ESPECIAL ────────────────────────────── */
+function checkUrlForAdminAccess() {
+  var urlParams = new URLSearchParams(window.location.search);
+  var adminKey = urlParams.get('acceso');  // Busca ?acceso=xxxx
+  
+  if (adminKey === ADMIN_SECRET) {
+    // Mostrar modal de login
+    if (loginBackdrop) {
+      loginBackdrop.classList.add('open');
+      loginBackdrop.setAttribute('aria-hidden', 'false');
+      if (adminPassword) adminPassword.focus();
+    }
+    
+    // Limpiar la URL (quitar el parámetro para que no se vea feo)
+    var cleanUrl = window.location.origin + window.location.pathname;
+    window.history.replaceState({}, document.title, cleanUrl);
+  }
+}
+
+/* ── 2. VERIFICAR SI EL DISPOSITIVO YA ESTÁ AUTORIZADO ───── */
+function isDeviceAuthorized() {
+  var autorizado = localStorage.getItem('admin_autorizado');
+  var expiracion = localStorage.getItem('admin_expira');
+  
+  if (!autorizado) return false;
+  
+  // Verificar si ha expirado (30 días)
+  if (expiracion) {
+    if (Date.now() > parseInt(expiracion)) {
+      localStorage.removeItem('admin_autorizado');
+      localStorage.removeItem('admin_expira');
+      return false;
+    }
+  }
+  
+  return autorizado === 'true';
+}
+
+/* ── 3. AUTORIZAR EL DISPOSITIVO ─────────────────────────── */
+function authorizeDevice() {
+  localStorage.setItem('admin_autorizado', 'true');
+  // Autorización por 30 días
+  var expiracion = Date.now() + (30 * 24 * 60 * 60 * 1000);
+  localStorage.setItem('admin_expira', expiracion);
+  showAdminButton();
+}
+
+/* ── 4. MOSTRAR BOTÓN DE ADMIN ───────────────────────────── */
+function showAdminButton() {
+  if (adminFab) {
+    adminFab.style.display = 'flex';
+  }
+}
+
+/* ── 5. OCULTAR BOTÓN DE ADMIN ───────────────────────────── */
+function hideAdminButton() {
+  if (adminFab) {
+    adminFab.style.display = 'none';
+  }
+}
+
+/* ── 6. CERRAR MODAL DE LOGIN ────────────────────────────── */
+function closeLoginModal() {
+  if (loginBackdrop) {
+    loginBackdrop.classList.remove('open');
+    loginBackdrop.setAttribute('aria-hidden', 'true');
+  }
+  if (loginError) loginError.textContent = '';
+  if (adminPassword) adminPassword.value = '';
+}
+
+/* ── 7. VERIFICAR CONTRASEÑA Y AUTORIZAR ─────────────────── */
+if (loginSubmit) {
+  loginSubmit.addEventListener('click', function() {
+    var password = adminPassword ? adminPassword.value.trim() : '';
+    
+    if (password === ADMIN_PASSWORD) {
+      authorizeDevice();
+      closeLoginModal();
+      alert('✅ Acceso concedido. El botón de administrador ya está disponible.');
+    } else {
+      if (loginError) loginError.textContent = '❌ Contraseña incorrecta. Intenta de nuevo.';
+      if (adminPassword) adminPassword.value = '';
+      if (adminPassword) adminPassword.focus();
+    }
+  });
+}
+
+/* ── 8. CERRAR MODAL CON LA X ────────────────────────────── */
+if (loginClose) {
+  loginClose.addEventListener('click', closeLoginModal);
+}
+
+/* ── 9. CERRAR MODAL HACIENDO CLIC FUERA ─────────────────── */
+if (loginBackdrop) {
+  loginBackdrop.addEventListener('click', function(e) {
+    if (e.target === loginBackdrop) closeLoginModal();
+  });
+}
+
+/* ── 10. ENTER PARA ENVIAR CONTRASEÑA ────────────────────── */
+if (adminPassword) {
+  adminPassword.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      if (loginSubmit) loginSubmit.click();
+    }
+  });
+}
+
+/* ── 11. INICIALIZAR AL CARGAR LA PÁGINA ─────────────────── */
+function initAdminSystem() {
+  // Verificar si el dispositivo ya está autorizado
+  if (isDeviceAuthorized()) {
+    showAdminButton();
+  }
+  
+  // Verificar si hay URL especial
+  checkUrlForAdminAccess();
+}
+
+// Ejecutar al cargar
+initAdminSystem();
+
+/* ── 12. BOTÓN FLOTANTE PARA ABRIR PANEL (próximamente) ──── */
+if (adminFab) {
+  adminFab.addEventListener('click', function() {
+    alert('🛠️ Panel de administración en construcción.\n\nPróximamente podrás añadir, editar y eliminar productos.');
+    // Aquí luego agregaremos el código para abrir el panel admin
+  });
+}
