@@ -36,6 +36,13 @@ cards.forEach(function(card) {
       qtySpan.textContent = current - 1;
       if (current - 1 === 0) card.classList.remove('has-qty');
       updateOrderBar();
+      plusBtn.addEventListener('click', function() {
+  var current = parseInt(qtySpan.textContent);
+  if (current < 50) { // máximo 99 unidades
+    qtySpan.textContent = current + 1;
+    // ...
+  }
+});
     }
   });
 });
@@ -69,6 +76,14 @@ function updateOrderBar() {
 /* ── 4. MODAL — abrir / cerrar ──────────────────────────── */
 var backdrop   = document.getElementById('modal-backdrop');
 var modalClose = document.getElementById('modal-close');
+
+// Antes de abrir el modal
+var totalItems = calcTotals().items;
+if (totalItems === 0) {
+  alert('⚠️ Selecciona al menos un producto antes de pedir.');
+  return;
+}
+// Si hay productos, abrir modal...
 
 // Abrir modal al pulsar "Enviar pedido"
 waBtn.addEventListener('click', function() {
