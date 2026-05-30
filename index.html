@@ -348,10 +348,10 @@ if (sendBtn) {
     });
 
     // Construir mensaje
-    var msg = 'Cliente: "' + nombre + '"\n' +
-              'Número: "' + tel + '"\n' +
-              'Dirección: "' + dir + '"\n' +
-              'Tarjeta Nº: "' + tarjeta + '"\n' +
+    var msg = 'Cliente: ' + nombre + '\n' +
+              'Número: ' + tel + '\n' +
+              'Dirección: ' + dir + '\n' +
+              'Tarjeta Nº: ' + tarjeta + '\n' +
               '\nPedido:\n' + lineas.join('\n') + '\n\nTotal: $' + total.toFixed(2);
 
     // Obtener número de WhatsApp
