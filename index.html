@@ -481,6 +481,24 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   
 });
+
+    /* ── 8. PANEL INFORMATIVO DESPLEGABLE ───────────────────────── */
+
+var infoBtn = document.getElementById('info-toggle-btn');
+var infoPanel = document.getElementById('info-panel');
+
+if (infoBtn && infoPanel) {
+  infoBtn.addEventListener('click', function() {
+    infoPanel.classList.toggle('open');
+    
+    // Cambiar el texto del botón al abrir/cerrar
+    if (infoPanel.classList.contains('open')) {
+      infoBtn.innerHTML = '📘 Ocultar información del pedido';
+    } else {
+      infoBtn.innerHTML = 'ℹ️ ¿Cómo funciona el pedido y la entrega?';
+    }
+  });
+}
     
   </script>
 
