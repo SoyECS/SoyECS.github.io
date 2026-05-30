@@ -174,11 +174,6 @@
            Para hacerlo obligatorio: añade  || !notas  en la
            validación del JS (busca el comentario marcado con ★)
            ────────────────────────────────────────────────────── -->
-      <div class="field-group">
-        <label class="field-label" for="input-tarjeta">💳 Tarjeta Bancaria</label>
-        <input class="field-input" id="input-tarjeta" type="tel" placeholder="Ej. 9244-XXXX-XXXX-6256" autocomplete="tarjeta" />
-      </div>
-
       <!-- Mensaje de error — aparece si faltan campos obligatorios -->
       <p class="modal-error" id="modal-error" aria-live="assertive"></p>
 
@@ -319,8 +314,8 @@
 
       // ★ VALIDACIÓN — campos obligatorios
       // Para hacer "notas" obligatorio agrega:  || !notas
-      if (!nombre || !tel || !dir || !tarjeta) {
-        errorEl.textContent = '⚠️ Por favor completa tu nombre, teléfono, dirección y tarjeta bancaria.';
+      if (!nombre || !tel || !dir) {
+        errorEl.textContent = '⚠️ Por favor completa tu nombre, teléfono, dirección';
         return;
       }
       errorEl.textContent = '';
@@ -340,8 +335,7 @@
       var msg =
         'Cliente: "' + nombre + '"\n' +
         'Número: "' + tel + '"\n' +
-        'Dirección: "' + dir + '"\n' +
-        'tarjeta: "' + tarjeta+ '"\n';
+        'Dirección: "' + dir + '"\n';
 
       // Agregar notas solo si el cliente escribió algo
       if (notas) {
