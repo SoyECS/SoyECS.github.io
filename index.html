@@ -220,5 +220,32 @@
   <!-- ============================================================
       JAVASCRIPT -->
 <script src="javascript.js"></script>
+
+  <!-- ============================================================
+     MODAL DE LOGIN PARA ADMINISTRADOR
+     ============================================================ -->
+<div class="login-backdrop" id="login-backdrop" aria-hidden="true">
+  <div class="login-modal">
+    <button class="login-close" id="login-close" aria-label="Cerrar">✕</button>
+    <h3 class="login-title">🔐 Acceso administrador</h3>
+    <p class="login-subtitle">Ingresa la contraseña para acceder al panel</p>
+    
+    <div class="field-group">
+      <label class="field-label" for="admin-password">🔑 Contraseña</label>
+      <input class="field-input" id="admin-password" type="password" placeholder="Ingresa la contraseña" />
+    </div>
+    
+    <p class="login-error" id="login-error"></p>
+    
+    <button class="login-btn" id="login-submit-btn">Acceder al panel</button>
+  </div>
+</div>
+
+<!-- Botón flotante para abrir el panel admin (solo visible para admin) -->
+<button class="admin-fab" id="admin-fab" style="display: none;" aria-label="Panel administrador">
+  🛠️
+</button>
+
+  
 </body>
 </html>
