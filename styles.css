@@ -1,514 +1,359 @@
-/* ================================================================
-   styles.css — Hoja de estilos del menú del negocio
-   ================================================================ */
-
-
-/* ----------------------------------------------------------------
-   1. VARIABLES GLOBALES (colores, fuentes, tamaños)
-   Modifica estas variables para cambiar toda la paleta de colores
-   de la página desde un solo lugar.
-   ---------------------------------------------------------------- */
-:root {
-  /* Colores principales */
-  --color-bg:          #0f0e0c;   /* Fondo general de la página      */
-  --color-surface:     #1a1814;   /* Fondo de las tarjetas           */
-  --color-surface-alt: #211f1b;   /* Fondo alternativo (footer, nav) */
-  --color-border:      #2e2b26;   /* Color de los bordes             */
-
-  /* Acento dorado — cambia este valor para cambiar el color resaltado */
-  --color-accent:      #c8943a;
-  --color-accent-dim:  #a07228;
-
-  /* Textos */
-  --color-text-primary:   #f0e8d8;  /* Texto principal               */
-  --color-text-secondary: #9e9080;  /* Texto secundario / subtítulos */
-  --color-text-price:     #e0a84a;  /* Color del precio              */
-
-  /* Tipografía — puedes cambiar las fuentes aquí */
-  --font-display: 'Playfair Display', Georgia, serif;  /* Títulos grandes  */
-  --font-body:    'Lato', sans-serif;                  /* Texto general    */
-
-  /* Bordes redondeados */
-  --radius-card: 12px;
-  --radius-btn:  30px;
-
-  /* Sombras */
-  --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.45);
-  --shadow-hover: 0 8px 36px rgba(200, 148, 58, 0.18);
-
-  /* Transición estándar */
-  --transition: 0.28s ease;
-}
-
-
-/* ----------------------------------------------------------------
-   2. RESET Y BASE
-   ---------------------------------------------------------------- */
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  background-color: var(--color-bg);
-  color: var(--color-text-primary);
-  font-family: var(--font-body);
-  font-size: 16px;
-  line-height: 1.6;
-  min-height: 100vh;
-  /* Espacio inferior para que la barra flotante no tape productos */
-  padding-bottom: 90px;
-}
-
-img {
-  display: block;
-  max-width: 100%;
-}
-
-
-/* ----------------------------------------------------------------
-   3. CABECERA — IMAGEN DEL NEGOCIO Y NOMBRE
-   ---------------------------------------------------------------- */
-
-/* Contenedor que agrupa imagen y nombre */
-.site-header {
-  width: 100%;
-}
-
-/* Envoltorio de la imagen hero (portada) */
-.hero-image-wrapper {
-  position: relative;
-  width: 100%;
-  /* ALTURA de la imagen de portada — cámbiala a tu gusto */
-  height: 320px;
-  overflow: hidden;
-}
-
-/* La imagen de portada en sí */
-.hero-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;         /* Recorta para cubrir el espacio      */
-  object-position: center;   /* Centra el recorte                   */
-  transition: transform 0.6s ease;
-}
-
-.hero-image-wrapper:hover .hero-image {
-  transform: scale(1.03);    /* Leve zoom al pasar el cursor        */
-}
-
-/* Capa oscura semitransparente sobre la imagen */
-.hero-overlay {
-  position: absolute;
-  inset: 0;
-  /* Gradiente que oscurece la parte inferior — modifica los % de opacidad */
-  background: linear-gradient(
-    to bottom,
-    rgba(15, 14, 12, 0.15) 0%,
-    rgba(15, 14, 12, 0.65) 100%
-  );
-}
-
-/* Bloque que contiene el nombre del negocio */
-.business-name-wrap {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 28px 20px 20px;
-  border-bottom: 1px solid var(--color-border);
-  background: linear-gradient(
-    to bottom,
-    rgba(30, 26, 20, 0.95),
-    var(--color-bg)
-  );
-}
-
-/* Título H1 del nombre */
-.business-name {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  text-align: center;
-}
-
-/* Parte principal del nombre (texto grande) */
-.name-main {
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 6vw, 3.6rem);  /* Tamaño responsive         */
-  font-weight: 900;
-  letter-spacing: 0.04em;
-  color: var(--color-text-primary);
-  /* Efecto metálico dorado en el texto */
-  background: linear-gradient(135deg, #f0d898 0%, #c8943a 45%, #e8c060 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* Subtítulo / eslogan debajo del nombre */
-.name-sub {
-  font-family: var(--font-body);
-  font-size: clamp(0.75rem, 2vw, 1rem);
-  font-weight: 300;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--color-text-secondary);
-  -webkit-text-fill-color: var(--color-text-secondary); /* Anula el clip del padre */
-}
-
-
-/* ----------------------------------------------------------------
-   4. NAVEGACIÓN DE CATEGORÍAS
-   ---------------------------------------------------------------- */
-.category-nav {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  padding: 24px 16px;
-  background-color: var(--color-surface-alt);
-  border-bottom: 1px solid var(--color-border);
-  /* Permite scroll horizontal en pantallas pequeñas */
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
-/* Cada botón de categoría */
-.cat-btn {
-  cursor: pointer;
-  font-family: var(--font-body);
-  font-size: 0.9rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--color-text-secondary);
-  background: transparent;
-  border: 2px solid var(--color-border);
-  border-radius: var(--radius-btn);
-  padding: 10px 28px;
-  white-space: nowrap;
-  transition:
-    color var(--transition),
-    border-color var(--transition),
-    background var(--transition),
-    box-shadow var(--transition);
-}
-
-/* Estado al pasar el cursor */
-.cat-btn:hover {
-  color: var(--color-accent);
-  border-color: var(--color-accent-dim);
-}
-
-/* Estado activo (categoría seleccionada) */
-.cat-btn.active {
-  color: #0f0e0c;
-  background: var(--color-accent);
-  border-color: var(--color-accent);
-  box-shadow: 0 0 18px rgba(200, 148, 58, 0.35);
-}
-
-
-/* ----------------------------------------------------------------
-   5. CUADRÍCULA DE PRODUCTOS
-   ---------------------------------------------------------------- */
-.product-grid {
-  display: grid;
-  /* 1 columna en móvil, 2 en tablet, 3 en escritorio */
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 28px;
-  padding: 40px 24px;
-  max-width: 1100px;   /* Ancho máximo de la cuadrícula — ajusta si quieres */
-  margin: 0 auto;
-}
-
-/* Clase que oculta los productos que no pertenecen a la categoría activa */
-.product-card.hidden {
-  display: none;
-}
-
-/* Tarjeta individual de producto */
-.product-card {
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-card);
-  overflow: hidden;
-  box-shadow: var(--shadow-card);
-  transition:
-    transform var(--transition),
-    box-shadow var(--transition),
-    border-color var(--transition);
-  /* Animación de entrada */
-  animation: fadeUp 0.4s ease both;
-}
-
-/* Efecto al pasar el cursor sobre una tarjeta */
-.product-card:hover {
-  transform: translateY(-6px);
-  box-shadow: var(--shadow-hover);
-  border-color: var(--color-accent-dim);
-}
-
-/* Resalte dorado cuando el producto tiene cantidad > 0 */
-.product-card.has-qty {
-  border-color: var(--color-accent);
-  box-shadow: 0 0 0 2px rgba(200, 148, 58, 0.35), var(--shadow-hover);
-}
-
-/* Imagen del producto */
-.product-img {
-  width: 100%;
-  height: 200px;         /* ALTURA de la foto del producto — ajusta aquí */
-  object-fit: cover;
-  object-position: center;
-  transition: transform 0.5s ease;
-}
-
-.product-card:hover .product-img {
-  transform: scale(1.06);
-}
-
-/* Bloque de texto (nombre + precio) */
-.product-info {
-  padding: 16px 18px 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-/* Nombre del producto */
-.product-name {
-  font-family: var(--font-display);
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--color-text-primary);
-  line-height: 1.3;
-}
-
-/* Precio del producto */
-.product-price {
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: var(--color-text-price);
-  letter-spacing: 0.02em;
-}
-
-
-/* ----------------------------------------------------------------
-   6. CONTADOR DE CANTIDAD
-   ---------------------------------------------------------------- */
-.qty-control {
-  display: flex;
-  align-items: center;
-  gap: 0;
-  border: 1px solid var(--color-border);
-  border-radius: 8px;
-  overflow: hidden;
-  width: fit-content;
-  margin-top: 4px;
-}
-
-/* Botones − y + */
-.qty-btn {
-  cursor: pointer;
-  width: 36px;
-  height: 36px;
-  background: var(--color-surface-alt);
-  border: none;
-  color: var(--color-text-secondary);
-  font-size: 1.3rem;
-  line-height: 1;
-  font-family: var(--font-body);
-  transition: background var(--transition), color var(--transition);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.qty-btn:hover {
-  background: var(--color-accent);
-  color: #0f0e0c;
-}
-
-.qty-btn:active {
-  transform: scale(0.9);
-}
-
-/* Número de cantidad */
-.qty-value {
-  min-width: 40px;
-  text-align: center;
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--color-text-primary);
-  padding: 0 6px;
-  background: transparent;
-  border-left: 1px solid var(--color-border);
-  border-right: 1px solid var(--color-border);
-  line-height: 36px;
-}
-
-
-/* ----------------------------------------------------------------
-   7. BARRA FLOTANTE DE PEDIDO
-   ---------------------------------------------------------------- */
-.order-bar {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: #1c1a15;
-  border-top: 1px solid var(--color-accent-dim);
-  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.6);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 14px 24px;
-  /* Oculta hacia abajo por defecto */
-  transform: translateY(100%);
-  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-  z-index: 100;
-}
-
-/* La clase .visible la añade JS cuando hay artículos */
-.order-bar.visible {
-  transform: translateY(0);
-}
-
-.order-bar-info {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.order-count {
-  font-size: 0.8rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--color-text-secondary);
-}
-
-.order-total {
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: var(--color-text-price);
-  font-family: var(--font-display);
-}
-
-/* Botón verde de WhatsApp */
-.whatsapp-btn {
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: #25d366;
-  color: #fff;
-  border: none;
-  border-radius: var(--radius-btn);
-  padding: 12px 24px;
-  font-family: var(--font-body);
-  font-size: 0.95rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  box-shadow: 0 4px 16px rgba(37, 211, 102, 0.35);
-  transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
-}
-
-.whatsapp-btn:hover {
-  background: #1ebe5d;
-  transform: scale(1.04);
-  box-shadow: 0 6px 22px rgba(37, 211, 102, 0.5);
-}
-
-.whatsapp-btn:active {
-  transform: scale(0.97);
-}
-
-
-/* ----------------------------------------------------------------
-   8. PIE DE PÁGINA — DIRECCIÓN Y TELÉFONO
-   ---------------------------------------------------------------- */
-.site-footer {
-  background-color: var(--color-surface-alt);
-  border-top: 1px solid var(--color-border);
-  padding: 36px 20px 40px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 14px;
-  margin-top: 20px;
-}
-
-/* Cada línea de información en el footer */
-.footer-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 0.95rem;
-  color: var(--color-text-secondary);
-  text-align: center;
-}
-
-/* Icono emoji del footer */
-.footer-icon {
-  font-size: 1.2rem;
-  flex-shrink: 0;
-}
-
-
-/* ----------------------------------------------------------------
-   9. ANIMACIÓN DE ENTRADA DE LAS TARJETAS
-   ---------------------------------------------------------------- */
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-
-/* ----------------------------------------------------------------
-   10. RESPONSIVE — AJUSTES PARA PANTALLAS PEQUEÑAS
-   ---------------------------------------------------------------- */
-@media (max-width: 600px) {
-
-  /* Imagen de portada más corta en móvil */
-  .hero-image-wrapper {
-    height: 210px;
-  }
-
-  /* Botones de categoría más compactos */
-  .cat-btn {
-    padding: 8px 18px;
-    font-size: 0.8rem;
-  }
-
-  /* Una sola columna de productos */
-  .product-grid {
-    grid-template-columns: 1fr;
-    padding: 24px 16px;
-    gap: 20px;
-  }
-
-  /* Barra flotante en columna en móvil */
-  .order-bar {
-    flex-direction: column;
-    gap: 12px;
-    padding: 16px 20px;
-  }
-
-  /* Botón WhatsApp ocupa todo el ancho en móvil */
-  .whatsapp-btn {
-    width: 100%;
-    justify-content: center;
-  }
-}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Dairy & Marco</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ============================================================
+       CABECERA — foto del negocio y nombre
+       ============================================================ -->
+  <header class="site-header">
+
+    <div class="hero-image-wrapper">
+      <img src="img/cover.jpg" alt="Foto del negocio" class="hero-image" />
+      <div class="hero-overlay"></div>
+    </div>
+
+    <div class="business-name-wrap">
+      <h1 class="business-name">
+        <span class="name-main">Dairy &amp; Marco</span>
+        <span class="name-sub"></span>
+      </h1>
+    </div>
+
+  </header>
+
+
+  <!-- ============================================================
+       MENÚ DE CATEGORÍAS
+       ============================================================ -->
+  <nav class="category-nav" role="tablist" aria-label="Categorías del menú">
+    <button class="cat-btn active" data-target="dulces"  role="tab" aria-selected="true"  aria-controls="product-grid">Dulces</button>
+    <button class="cat-btn"        data-target="bebidas" role="tab" aria-selected="false" aria-controls="product-grid">Bebidas</button>
+    <button class="cat-btn"        data-target="otros"   role="tab" aria-selected="false" aria-controls="product-grid">Otros</button>
+  </nav>
+
+
+  <!-- ============================================================
+       CUADRÍCULA DE PRODUCTOS
+       Cada <article> necesita:
+         data-category → "dulces", "bebidas" u "otros"
+         data-name     → nombre en el mensaje de WhatsApp
+         data-price    → precio numérico sin símbolo (ej: 130.00)
+       ============================================================ -->
+  <main id="product-grid" class="product-grid" role="tabpanel">
+
+    <!-- ── DULCES ─────────────────────────────────────────────── -->
+
+    <article class="product-card" data-category="dulces" data-name="Maní Cocinado" data-price="130.00">
+      <img src="img/maniC.jpg" alt="Maní Cocinado" class="product-img" />
+      <div class="product-info">
+        <h2 class="product-name">Maní Cocinado</h2>
+        <p class="product-price">$130.00</p>
+        <div class="qty-control">
+          <button class="qty-btn qty-minus" aria-label="Restar">−</button>
+          <span class="qty-value">0</span>
+          <button class="qty-btn qty-plus" aria-label="Sumar">+</button>
+        </div>
+      </div>
+    </article>
+
+    <article class="product-card" data-category="dulces" data-name="Maní Molido" data-price="110.00">
+      <img src="img/maniC.jpg" alt="Maní Molido" class="product-img" />
+      <div class="product-info">
+        <h2 class="product-name">Maní Molido</h2>
+        <p class="product-price">$110.00</p>
+        <div class="qty-control">
+          <button class="qty-btn qty-minus" aria-label="Restar">−</button>
+          <span class="qty-value">0</span>
+          <button class="qty-btn qty-plus" aria-label="Sumar">+</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- ── BEBIDAS ────────────────────────────────────────────── -->
+
+    <article class="product-card" data-category="bebidas" data-name="Refresco de Lata Naranja" data-price="250.00">
+      <img src="img/refrescoLataNaranja.jpg" alt="Refresco de Lata Naranja" class="product-img" />
+      <div class="product-info">
+        <h2 class="product-name">Refresco de Lata Naranja</h2>
+        <p class="product-price">$250.00</p>
+        <div class="qty-control">
+          <button class="qty-btn qty-minus" aria-label="Restar">−</button>
+          <span class="qty-value">0</span>
+          <button class="qty-btn qty-plus" aria-label="Sumar">+</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- ── OTROS ──────────────────────────────────────────────── -->
+
+    <article class="product-card" data-category="otros" data-name="Producto de Ejemplo" data-price="100.00">
+      <img src="https://placehold.co/400x300/1a2a0e/96c86e?text=Ejemplo" alt="Ejemplo de producto" class="product-img" />
+      <div class="product-info">
+        <h2 class="product-name">Producto de Ejemplo</h2>
+        <p class="product-price">$100.00</p>
+        <div class="qty-control">
+          <button class="qty-btn qty-minus" aria-label="Restar">−</button>
+          <span class="qty-value">0</span>
+          <button class="qty-btn qty-plus" aria-label="Sumar">+</button>
+        </div>
+      </div>
+    </article>
+
+  </main>
+
+
+  <!-- ============================================================
+       BARRA FLOTANTE DE PEDIDO
+       Aparece cuando hay al menos 1 producto seleccionado.
+       ★ Cambia data-phone por tu número: código de país + número sin espacios.
+         Cuba ejemplo: "5359638868"
+       ============================================================ -->
+  <div class="order-bar" id="order-bar" aria-live="polite" aria-hidden="true">
+    <div class="order-bar-info">
+      <span class="order-count" id="order-count">0 artículos</span>
+      <span class="order-total" id="order-total">$0.00</span>
+    </div>
+    <button class="whatsapp-btn" id="whatsapp-btn" data-phone="5359638868">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+      </svg>
+      Enviar pedido
+    </button>
+  </div>
+
+
+  <!-- ============================================================
+       MODAL — DATOS DEL CLIENTE
+       Se abre al pulsar "Enviar pedido". El cliente llena sus datos
+       y luego se envía todo por WhatsApp.
+
+       PARA AGREGAR MÁS CAMPOS: copia un bloque <div class="field-group">
+       y pégalo aquí arriba del párrafo <p class="modal-error">.
+       Cambia el id, el label y el placeholder.
+       Si el campo es obligatorio, agrégalo también en la validación del JS.
+       ============================================================ -->
+  <div class="modal-backdrop" id="modal-backdrop" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+
+      <button class="modal-close" id="modal-close" aria-label="Cerrar">✕</button>
+
+      <h2 class="modal-title" id="modal-title">Tus datos de entrega</h2>
+      <p class="modal-subtitle">Necesitamos estos datos para enviarte tu pedido.</p>
+
+      <!-- Campo: Nombre -->
+      <div class="field-group">
+        <label class="field-label" for="input-nombre">👤 Tu nombre</label>
+        <input class="field-input" id="input-nombre" type="text" placeholder="Ej. María García" autocomplete="name" />
+      </div>
+
+      <!-- Campo: Teléfono -->
+      <div class="field-group">
+        <label class="field-label" for="input-tel">📞 Tu número de teléfono</label>
+        <input class="field-input" id="input-tel" type="tel" placeholder="Ej. 5963-8868" autocomplete="tel" />
+      </div>
+
+      <!-- Campo: Dirección -->
+      <div class="field-group">
+        <label class="field-label" for="input-dir">📍 Dirección de entrega</label>
+        <input class="field-input" id="input-dir" type="text" placeholder="Ej. Reparto José Martí, calle 13 #45" autocomplete="street-address" />
+      </div>
+
+      <!-- Campo: Notas del pedido (opcional) -->
+      <div class="field-group">
+        <label class="field-label" for="input-notas">📝 Notas del pedido (opcional)</label>
+        <input class="field-input" id="input-notas" type="text" placeholder="Ej. Sin cebolla, entregar después de las 3pm..." />
+      </div>
+
+      <!-- Mensaje de error — aparece si faltan campos obligatorios -->
+      <p class="modal-error" id="modal-error" aria-live="assertive"></p>
+
+      <!-- Botón de envío -->
+      <button class="modal-send-btn" id="modal-send-btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+        Enviar pedido por WhatsApp
+      </button>
+
+    </div>
+  </div>
+
+
+  <!-- ============================================================
+       PIE DE PÁGINA
+       ============================================================ -->
+  <footer class="site-footer">
+    <p class="footer-item">
+      <span class="footer-icon">📍</span>
+      <span>Reparto José Martí</span>
+    </p>
+    <p class="footer-item">
+      <span class="footer-icon">📞</span>
+      <span>+53 59638868</span>
+    </p>
+  </footer>
+
+
+  <!-- ============================================================
+       JAVASCRIPT
+       ============================================================ -->
+  <script>
+
+    /* ── 1. FILTRO DE CATEGORÍAS ────────────────────────────── */
+    var catBtns = document.querySelectorAll('.cat-btn');
+    var cards   = document.querySelectorAll('.product-card');
+
+    catBtns.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        catBtns.forEach(function(b) {
+          b.classList.remove('active');
+          b.setAttribute('aria-selected', 'false');
+        });
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+        var target = btn.getAttribute('data-target');
+        cards.forEach(function(card) {
+          card.classList.toggle('hidden', card.getAttribute('data-category') !== target);
+        });
+      });
+    });
+
+
+    /* ── 2. CONTADORES DE CANTIDAD ──────────────────────────── */
+    cards.forEach(function(card) {
+      var minusBtn = card.querySelector('.qty-minus');
+      var plusBtn  = card.querySelector('.qty-plus');
+      var qtySpan  = card.querySelector('.qty-value');
+
+      plusBtn.addEventListener('click', function() {
+        qtySpan.textContent = parseInt(qtySpan.textContent) + 1;
+        card.classList.add('has-qty');
+        updateOrderBar();
+      });
+
+      minusBtn.addEventListener('click', function() {
+        var current = parseInt(qtySpan.textContent);
+        if (current > 0) {
+          qtySpan.textContent = current - 1;
+          if (current - 1 === 0) card.classList.remove('has-qty');
+          updateOrderBar();
+        }
+      });
+    });
+
+
+    /* ── 3. BARRA DE PEDIDO Y TOTAL ─────────────────────────── */
+    var orderBar   = document.getElementById('order-bar');
+    var orderCount = document.getElementById('order-count');
+    var orderTotal = document.getElementById('order-total');
+    var waBtn      = document.getElementById('whatsapp-btn');
+
+    function calcTotals() {
+      var items = 0, price = 0;
+      cards.forEach(function(card) {
+        var qty = parseInt(card.querySelector('.qty-value').textContent);
+        items += qty;
+        price += qty * parseFloat(card.getAttribute('data-price'));
+      });
+      return { items: items, price: price };
+    }
+
+    function updateOrderBar() {
+      var t = calcTotals();
+      orderCount.textContent = t.items + (t.items === 1 ? ' artículo' : ' artículos');
+      orderTotal.textContent = '$' + t.price.toFixed(2);
+      orderBar.classList.toggle('visible', t.items > 0);
+      orderBar.setAttribute('aria-hidden', t.items > 0 ? 'false' : 'true');
+    }
+
+
+    /* ── 4. MODAL — abrir / cerrar ──────────────────────────── */
+    var backdrop   = document.getElementById('modal-backdrop');
+    var modalClose = document.getElementById('modal-close');
+
+    // Abrir modal al pulsar "Enviar pedido"
+    waBtn.addEventListener('click', function() {
+      backdrop.classList.add('open');
+      backdrop.setAttribute('aria-hidden', 'false');
+      document.getElementById('input-nombre').focus();
+    });
+
+    // Cerrar al pulsar la X
+    modalClose.addEventListener('click', closeModal);
+
+    // Cerrar al hacer clic fuera del cuadro
+    backdrop.addEventListener('click', function(e) {
+      if (e.target === backdrop) closeModal();
+    });
+
+    function closeModal() {
+      backdrop.classList.remove('open');
+      backdrop.setAttribute('aria-hidden', 'true');
+      document.getElementById('modal-error').textContent = '';
+    }
+
+
+    /* ── 5. ENVIAR PEDIDO POR WHATSAPP ──────────────────────── */
+    document.getElementById('modal-send-btn').addEventListener('click', function() {
+
+      var nombre = document.getElementById('input-nombre').value.trim();
+      var tel    = document.getElementById('input-tel').value.trim();
+      var dir    = document.getElementById('input-dir').value.trim();
+      var notas  = document.getElementById('input-notas').value.trim();
+      var errorEl = document.getElementById('modal-error');
+
+      // VALIDACIÓN — campos obligatorios
+      if (!nombre || !tel || !dir) {
+        errorEl.textContent = '⚠️ Por favor completa tu nombre, teléfono y dirección.';
+        return;
+      }
+      errorEl.textContent = '';
+
+      // Construir lista de productos seleccionados
+      var lineas = [];
+      cards.forEach(function(card) {
+        var qty = parseInt(card.querySelector('.qty-value').textContent);
+        if (qty > 0) {
+          lineas.push(qty + 'x ' + card.getAttribute('data-name'));
+        }
+      });
+
+      var total = calcTotals().price;
+
+      // Armar el mensaje con los datos del cliente
+      var msg =
+        'Cliente: "' + nombre + '"\n' +
+        'Número: "' + tel + '"\n' +
+        'Dirección: "' + dir + '"\n';
+
+      // Agregar notas solo si el cliente escribió algo
+      if (notas) {
+        msg += 'Notas: "' + notas + '"\n';
+      }
+
+      msg +=
+        '\nPedido:\n' +
+        lineas.join('\n') +
+        '\n\nTotal: $' + total.toFixed(2);
+
+      var phone = waBtn.getAttribute('data-phone');
+      var url   = 'https://wa.me/' + phone + '?text=' + encodeURIComponent(msg);
+      window.open(url, '_blank');
+      closeModal();
+    });
+
+  </script>
+
+</body>
+</html>
