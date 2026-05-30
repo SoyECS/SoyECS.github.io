@@ -425,72 +425,33 @@ if (modalBackdrop) {
   observer.observe(modalBackdrop, { attributes: true });
 }
 
-/* ── 7. BOTÓN DE AYUDA PARA LA DIRECCIÓN ───────────────────── */
+/* ── 7. BOTÓN DE AYUDA PARA LA DIRECCIÓN (VERSIÓN CORREGIDA) ── */
 
-var helpBtn = document.getElementById('help-dir-btn');
-var tooltip = null;
-
-function mostrarAyudaDireccion(event) {
-  // Eliminar tooltip existente si lo hay
-  if (tooltip) {
-    tooltip.remove();
-    tooltip = null;
-  }
-
-  // Crear nuevo tooltip
-  tooltip = document.createElement('div');
-  tooltip.className = 'help-tooltip';
-  tooltip.innerHTML = '📌 <strong>Consejo para tu dirección:</strong><br><br>' +
-                      '• Escribe tu dirección lo más clara posible.<br>' +
-                      '• Incluye: calle, número, reparto, ciudad.<br>' +
-                      '• Agrega puntos de referencia (ej: cerca de la escuela).<br>' +
-                      '• Ejemplo: "Calle 13 #45 e/ 2da y 3ra, Reparto José Martí".<br><br>' +
-                      '✨ ¡Así recibirás tu pedido sin demoras! ✨';
+// Esperar a que todo el HTML esté cargado
+document.addEventListener('DOMContentLoaded', function() {
   
-  document.body.appendChild(tooltip);
-
-  // Posicionar el tooltip cerca del botón
-  var rect = helpBtn.getBoundingClientRect();
-  tooltip.style.top = (rect.bottom + 8) + 'px';
-  tooltip.style.left = (rect.left - 20) + 'px';
-
-  // Ocultar después de 5 segundos o al hacer clic fuera
-  setTimeout(function() {
-    if (tooltip) {
-      tooltip.classList.add('show');
-      setTimeout(function() {
-        if (tooltip) {
-          tooltip.classList.remove('show');
-          setTimeout(function() {
-            if (tooltip) {
-              tooltip.remove();
-              tooltip = null;
-            }
-          }, 250);
-        }
-      }, 4000);
-    }
-  }, 10);
-}
-
-if (helpBtn) {
-  helpBtn.addEventListener('click', mostrarAyudaDireccion);
-}
-
-// Cerrar tooltip si se hace clic en cualquier lugar fuera
-document.addEventListener('click', function(e) {
-  if (tooltip && e.target !== helpBtn && !helpBtn.contains(e.target)) {
-    tooltip.classList.remove('show');
-    setTimeout(function() {
-      if (tooltip) {
-        tooltip.remove();
-        tooltip = null;
-      }
-    }, 250);
+  var helpBtn = document.getElementById('help-dir-btn');
+  
+  if (helpBtn) {
+    helpBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      alert('📍 CONSEJO PARA TU DIRECCIÓN 📍\n\n' +
+            'Escribe tu dirección lo más clara posible:\n\n' +
+            '✓ Calle y número\n' +
+            '✓ Reparto o colonia\n' +
+            '✓ Ciudad\n' +
+            '✓ Puntos de referencia (escuela, parque, tienda)\n\n' +
+            '📌 Ejemplo:\n' +
+            '"Calle 13 #45 e/ 2da y 3ra, Reparto José Martí"\n\n' +
+            '✨ ¡Así recibirás tu pedido sin demoras! ✨');
+    });
+  } else {
+    console.log('No se encontró el botón con id="help-dir-btn"');
   }
+  
 });
     
-</script>
+  </script>
 
 </body>
 </html>
