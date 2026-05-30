@@ -105,22 +105,27 @@
        SECCIÓN: CUADRÍCULA DE PRODUCTOS
        Cada <article> es un producto. Puedes copiar y pegar un bloque
        completo para agregar más productos.
+       
+       NUEVA ESTRUCTURA: cada tarjeta ahora tiene:
+         - data-category  → "dulces", "bebidas" u "otros"
+         - data-name      → nombre del producto (aparece en el mensaje de WhatsApp)
+         - data-price     → precio en número sin símbolo (ej: 130.00)
+         - Controles de cantidad (+, -) para hacer pedidos
        ============================================================ -->
   <main id="product-grid" class="product-grid" role="tabpanel">
 
     <!-- ==========================================================
-         ★ PRODUCTOS — CATEGORÍA: COMIDA
-         data-category="comida" los vincula al botón Comida
+         ★ PRODUCTOS — CATEGORÍA: DULCES
+         data-category="dulces" los vincula al botón Dulces
          ========================================================== -->
 
-    <!-- PRODUCTO 1 — COMIDA -->
-    <article class="product-card" data-category="dulces">
+    <!-- PRODUCTO 1 — DULCES -->
+    <article class="product-card" data-category="dulces" data-name="Maní Cocinado" data-price="130.00">
       <!-- Imagen del producto:
-           Reemplaza el src por la ruta de tu imagen, ej: "imagenes/tacos.jpg"
-           Cambia el alt por una descripción real del platillo -->
+           Reemplaza el src por la ruta de tu imagen -->
       <img
         src="img/maniC.jpg"
-        alt=""
+        alt="Maní Cocinado"
         class="product-img"
       />
       <div class="product-info">
@@ -128,24 +133,30 @@
         <h2 class="product-name">Maní Cocinado</h2>
         <!-- Precio del producto -->
         <p class="product-price">$130.00</p>
+        <!-- Contador de cantidad — NO modificar esta estructura -->
+        <div class="qty-control">
+          <button class="qty-btn qty-minus" aria-label="Restar">−</button>
+          <span class="qty-value">0</span>
+          <button class="qty-btn qty-plus" aria-label="Sumar">+</button>
+        </div>
       </div>
     </article>
     
-    <!-- Segundo Producto ----------------------->
-    <article class="product-card" data-category="dulces">
-      <!-- Imagen del producto:
-           Reemplaza el src por la ruta de tu imagen, ej: "imagenes/tacos.jpg"
-           Cambia el alt por una descripción real del platillo -->
+    <!-- PRODUCTO 2 — DULCES -->
+    <article class="product-card" data-category="dulces" data-name="Maní Molido" data-price="110.00">
       <img
         src="img/maniC.jpg"
-        alt=""
+        alt="Maní Molido"
         class="product-img"
       />
       <div class="product-info">
-        <!-- Nombre del producto -->
         <h2 class="product-name">Maní Molido</h2>
-        <!-- Precio del producto -->
         <p class="product-price">$110.00</p>
+        <div class="qty-control">
+          <button class="qty-btn qty-minus" aria-label="Restar">−</button>
+          <span class="qty-value">0</span>
+          <button class="qty-btn qty-plus" aria-label="Sumar">+</button>
+        </div>
       </div>
     </article>
 
@@ -154,15 +165,20 @@
          ========================================================== -->
 
     <!-- PRODUCTO 1 — BEBIDAS -->
-    <article class="product-card" data-category="bebidas">
+    <article class="product-card" data-category="bebidas" data-name="Refresco de Lata Naranja" data-price="250.00">
       <img
         src="img/refrescoLataNaranja.jpg"
-        alt=""
+        alt="Refresco de Lata Naranja"
         class="product-img"
       />
       <div class="product-info">
         <h2 class="product-name">Refresco de Lata Naranja</h2>
         <p class="product-price">$250.00</p>
+        <div class="qty-control">
+          <button class="qty-btn qty-minus" aria-label="Restar">−</button>
+          <span class="qty-value">0</span>
+          <button class="qty-btn qty-plus" aria-label="Sumar">+</button>
+        </div>
       </div>
     </article>
 
@@ -170,21 +186,60 @@
          ★ PRODUCTOS — CATEGORÍA: OTROS
          ========================================================== -->
 
-    <!-- PRODUCTO 1 — OTROS -->
-    <article class="product-card" data-category="otros">
+    <!-- PRODUCTO 1 — OTROS (ejemplo con datos de relleno, reemplázalos) -->
+    <article class="product-card" data-category="otros" data-name="Producto de Ejemplo" data-price="100.00">
       <img
-        src=""
-        alt=""
+        src="https://placehold.co/400x300/1a2a0e/96c86e?text=Ejemplo"
+        alt="Ejemplo de producto"
         class="product-img"
       />
       <div class="product-info">
-        <h2 class="product-name"></h2>
-        <p class="product-price"></p>
+        <h2 class="product-name">Producto de Ejemplo</h2>
+        <p class="product-price">$100.00</p>
+        <div class="qty-control">
+          <button class="qty-btn qty-minus" aria-label="Restar">−</button>
+          <span class="qty-value">0</span>
+          <button class="qty-btn qty-plus" aria-label="Sumar">+</button>
+        </div>
       </div>
     </article>
     
   </main>
   <!-- FIN: CUADRÍCULA DE PRODUCTOS -->
+
+
+  <!-- ============================================================
+       BARRA FLOTANTE DE PEDIDO
+       Aparece automáticamente cuando hay al menos 1 producto seleccionado.
+       El botón "Enviar pedido" abre WhatsApp con el resumen.
+       ============================================================ -->
+  <div class="order-bar" id="order-bar" aria-live="polite" aria-hidden="true">
+    <div class="order-bar-info">
+      <!-- Muestra cuántos artículos hay en el pedido -->
+      <span class="order-count" id="order-count">0 artículos</span>
+      <!-- Muestra el total calculado -->
+      <span class="order-total" id="order-total">$0.00</span>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════════
+         BOTÓN DE WHATSAPP
+         ▸ Cambia el número en el atributo data-phone.
+           Formato: código de país + número, SIN espacios ni símbolos.
+           Ejemplo México (55) 1234-5678  →  data-phone="5215512345678"
+           Ejemplo Argentina (11) 1234-5678 → data-phone="541112345678"
+         ══════════════════════════════════════════════════════════ -->
+    <button
+      class="whatsapp-btn"
+      id="whatsapp-btn"
+      data-phone="5359638868"
+    >
+      <!-- Icono SVG de WhatsApp (no necesitas modificarlo) -->
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+      </svg>
+      Enviar pedido
+    </button>
+  </div>
 
 
   <!-- ============================================================
@@ -212,45 +267,131 @@
 
 
   <!-- ============================================================
-       JAVASCRIPT INLINE MÍNIMO
-       Solo se encarga de mostrar/ocultar productos al hacer clic
-       en los botones del menú. No necesitas modificarlo.
+       JAVASCRIPT
+       Maneja: filtro de categorías, contadores y botón de WhatsApp.
+       Solo debes tocar la línea marcada con ★ si cambias el número.
        ============================================================ -->
-      
   <script>
-    // Seleccionamos todos los botones de categoría
-    const buttons = document.querySelectorAll('.cat-btn');
-    // Seleccionamos todas las tarjetas de producto
-    const cards   = document.querySelectorAll('.product-card');
 
-    buttons.forEach(function(btn) {
+    /* ── 1. FILTRO DE CATEGORÍAS ────────────────────────────── */
+    var catBtns = document.querySelectorAll('.cat-btn');
+    var cards   = document.querySelectorAll('.product-card');
+
+    catBtns.forEach(function(btn) {
       btn.addEventListener('click', function() {
-
-        // 1. Quitar la clase "active" de todos los botones
-        buttons.forEach(function(b) {
+        catBtns.forEach(function(b) {
           b.classList.remove('active');
           b.setAttribute('aria-selected', 'false');
         });
-
-        // 2. Marcar el botón pulsado como activo
         btn.classList.add('active');
         btn.setAttribute('aria-selected', 'true');
 
-        // 3. Obtener la categoría del botón pulsado
         var target = btn.getAttribute('data-target');
-
-        // 4. Mostrar solo los productos de esa categoría
         cards.forEach(function(card) {
-          if (card.getAttribute('data-category') === target) {
-            card.classList.remove('hidden');
-          } else {
-            card.classList.add('hidden');
-          }
+          card.classList.toggle('hidden', card.getAttribute('data-category') !== target);
         });
-
       });
     });
-    
+
+
+    /* ── 2. CONTADORES DE CANTIDAD ──────────────────────────── */
+    cards.forEach(function(card) {
+      var minusBtn  = card.querySelector('.qty-minus');
+      var plusBtn   = card.querySelector('.qty-plus');
+      var qtySpan   = card.querySelector('.qty-value');
+
+      // Botón "+" — suma 1 al contador
+      plusBtn.addEventListener('click', function() {
+        var current = parseInt(qtySpan.textContent);
+        qtySpan.textContent = current + 1;
+        // Resaltar la tarjeta cuando tiene cantidad > 0
+        card.classList.add('has-qty');
+        updateOrderBar(); // recalcula el resumen
+      });
+
+      // Botón "−" — resta 1, mínimo 0
+      minusBtn.addEventListener('click', function() {
+        var current = parseInt(qtySpan.textContent);
+        if (current > 0) {
+          qtySpan.textContent = current - 1;
+          if (current - 1 === 0) {
+            card.classList.remove('has-qty');
+          }
+          updateOrderBar();
+        }
+      });
+    });
+
+
+    /* ── 3. BARRA DE PEDIDO Y TOTAL ─────────────────────────── */
+    var orderBar    = document.getElementById('order-bar');
+    var orderCount  = document.getElementById('order-count');
+    var orderTotal  = document.getElementById('order-total');
+    var waBtn       = document.getElementById('whatsapp-btn');
+
+    function updateOrderBar() {
+      var totalItems = 0;
+      var totalPrice = 0;
+
+      // Recorrer todos los productos y sumar cantidades y precios
+      cards.forEach(function(card) {
+        var qty   = parseInt(card.querySelector('.qty-value').textContent);
+        var price = parseFloat(card.getAttribute('data-price'));
+        totalItems += qty;
+        totalPrice += qty * price;
+      });
+
+      // Actualizar los textos de la barra
+      orderCount.textContent = totalItems + (totalItems === 1 ? ' artículo' : ' artículos');
+      orderTotal.textContent = '$' + totalPrice.toFixed(2);
+
+      // Mostrar u ocultar la barra según si hay artículos
+      if (totalItems > 0) {
+        orderBar.classList.add('visible');
+        orderBar.setAttribute('aria-hidden', 'false');
+      } else {
+        orderBar.classList.remove('visible');
+        orderBar.setAttribute('aria-hidden', 'true');
+      }
+    }
+
+
+    /* ── 4. BOTÓN DE WHATSAPP ───────────────────────────────── */
+    waBtn.addEventListener('click', function() {
+
+      // ★ El número se lee del atributo data-phone del botón en el HTML.
+      //   Cámbialo directamente en el HTML (busca data-phone="...").
+      var phone = waBtn.getAttribute('data-phone');
+
+      // Construir la lista de productos seleccionados
+      var lines = [];
+      cards.forEach(function(card) {
+        var qty  = parseInt(card.querySelector('.qty-value').textContent);
+        if (qty > 0) {
+          var name  = card.getAttribute('data-name');
+          var price = parseFloat(card.getAttribute('data-price'));
+          var sub   = (qty * price).toFixed(2);
+          lines.push(qty + 'x ' + name + ' — $' + sub);
+        }
+      });
+
+      // Calcular total general
+      var grandTotal = 0;
+      cards.forEach(function(card) {
+        grandTotal += parseInt(card.querySelector('.qty-value').textContent)
+                    * parseFloat(card.getAttribute('data-price'));
+      });
+
+      // Armar el mensaje completo
+      var msg = '¡Hola! Quisiera hacer el siguiente pedido:\n\n'
+              + lines.join('\n')
+              + '\n\n*Total: $' + grandTotal.toFixed(2) + '*';
+
+      // Abrir WhatsApp con el mensaje pre-escrito
+      var url = 'https://wa.me/' + phone + '?text=' + encodeURIComponent(msg);
+      window.open(url, '_blank');
+    });
+
   </script>
 
 </body>
