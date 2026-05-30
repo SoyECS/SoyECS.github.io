@@ -223,17 +223,27 @@ img { display: block; max-width: 100%; }
 /* ----------------------------------------------------------------
    8. MODAL — datos del cliente
    ---------------------------------------------------------------- */
+/* ----------------------------------------------------------------
+   MODAL — datos del cliente
+   ---------------------------------------------------------------- */
 .modal-backdrop {
-  position: fixed; inset: 0;
-  background: rgba(0,0,0,.75);
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
   backdrop-filter: blur(4px);
-  display: flex; align-items: center; justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   z-index: 200;
-  /* Oculto por defecto */
-  opacity: 0; pointer-events: none;
-  transition: opacity .25s ease;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
 }
-.modal-backdrop.open { opacity: 1; pointer-events: all; }
+
+.modal-backdrop.open {
+  opacity: 1;
+  pointer-events: all;
+}
 
 .modal {
   position: relative;
@@ -241,58 +251,137 @@ img { display: block; max-width: 100%; }
   border: 1px solid var(--color-accent-dim);
   border-radius: 18px;
   padding: 36px 32px 32px;
-  width: 100%; max-width: 420px;
-  box-shadow: 0 24px 60px rgba(0,0,0,.7);
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.7);
   transform: translateY(20px);
-  transition: transform .3s cubic-bezier(.34,1.56,.64,1);
-  display: flex; flex-direction: column; gap: 18px;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
 }
-.modal-backdrop.open .modal { transform: translateY(0); }
+
+.modal-backdrop.open .modal {
+  transform: translateY(0);
+}
 
 .modal-close {
-  position: absolute; top: 16px; right: 16px;
-  cursor: pointer; background: none; border: none;
-  color: var(--color-text-secondary); font-size: 1.1rem; line-height: 1;
-  width: 32px; height: 32px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: var(--color-text-secondary);
+  font-size: 1.1rem;
+  line-height: 1;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: background var(--transition), color var(--transition);
 }
-.modal-close:hover { background: rgba(255,255,255,.08); color: var(--color-text-primary); }
+
+.modal-close:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--color-text-primary);
+}
 
 .modal-title {
-  font-family: var(--font-display); font-size: 1.5rem; font-weight: 700;
-  color: var(--color-text-primary); line-height: 1.2;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  line-height: 1.2;
 }
-.modal-subtitle { font-size: .88rem; color: var(--color-text-secondary); margin-top: -10px; }
 
-.field-group { display: flex; flex-direction: column; gap: 6px; }
-.field-label { font-size: .82rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--color-text-secondary); }
+.modal-subtitle {
+  font-size: 0.88rem;
+  color: var(--color-text-secondary);
+  margin-top: -10px;
+}
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
 .field-input {
-  background: #2a2720; border: 1.5px solid var(--color-border);
-  border-radius: 10px; padding: 13px 16px;
-  font-family: var(--font-body); font-size: .95rem; color: var(--color-text-primary);
+  background: #2a2720;
+  border: 1.5px solid var(--color-border);
+  border-radius: 10px;
+  padding: 13px 16px;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--color-text-primary);
   outline: none;
   transition: border-color var(--transition), box-shadow var(--transition);
 }
-.field-input::placeholder { color: #5a5348; }
-.field-input:focus { border-color: var(--color-accent); box-shadow: 0 0 0 3px rgba(200,148,58,.18); }
 
-.modal-error { font-size: .85rem; color: #e06060; min-height: 1.2em; }
-
-/* Botón final de envío dentro del modal */
-.modal-send-btn {
-  cursor: pointer; margin-top: 4px;
-  display: flex; align-items: center; justify-content: center; gap: 10px;
-  background: linear-gradient(135deg, #25d366 0%, #128c52 100%);
-  color: #fff; border: none; border-radius: 12px;
-  padding: 16px; width: 100%;
-  font-family: var(--font-body); font-size: 1rem; font-weight: 700; letter-spacing: .03em;
-  box-shadow: 0 4px 18px rgba(37,211,102,.35);
-  transition: filter var(--transition), transform var(--transition), box-shadow var(--transition);
+.field-input::placeholder {
+  color: #5a5348;
 }
-.modal-send-btn:hover { filter: brightness(1.1); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37,211,102,.5); }
-.modal-send-btn:active { transform: scale(0.97); }
 
+.field-input:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(200, 148, 58, 0.18);
+}
+
+.modal-error {
+  font-size: 0.85rem;
+  color: #e06060;
+  min-height: 1.2em;
+}
+
+.modal-send-btn {
+  cursor: pointer;
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: #25d366;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 16px;
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  box-shadow: 0 4px 18px rgba(37, 211, 102, 0.35);
+  transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+}
+
+.modal-send-btn:hover {
+  background: #1ebe5d;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(37, 211, 102, 0.5);
+}
+
+.modal-send-btn:active {
+  transform: scale(0.97);
+}
+
+/* Responsive del modal en móvil */
+@media (max-width: 600px) {
+  .modal {
+    max-width: 95vw;
+    padding: 28px 20px 24px;
+  }
+}
 /* ----------------------------------------------------------------
    9. PIE DE PÁGINA
    ---------------------------------------------------------------- */
