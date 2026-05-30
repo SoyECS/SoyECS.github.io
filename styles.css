@@ -61,6 +61,8 @@ body {
   font-size: 16px;
   line-height: 1.6;
   min-height: 100vh;
+  /* Espacio inferior para que la barra flotante no tape productos */
+  padding-bottom: 90px;
 }
 
 img {
@@ -97,7 +99,7 @@ img {
 }
 
 .hero-image-wrapper:hover .hero-image {
-  transform: scale(1.5);    /* Leve zoom al pasar el cursor        */
+  transform: scale(1.03);    /* Leve zoom al pasar el cursor        */
 }
 
 /* Capa oscura semitransparente sobre la imagen */
@@ -252,10 +254,16 @@ img {
   border-color: var(--color-accent-dim);
 }
 
+/* Resalte dorado cuando el producto tiene cantidad > 0 */
+.product-card.has-qty {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 2px rgba(200, 148, 58, 0.35), var(--shadow-hover);
+}
+
 /* Imagen del producto */
 .product-img {
   width: 100%;
-  height: 300px;         /* ALTURA de la foto del producto — ajusta aquí */
+  height: 200px;         /* ALTURA de la foto del producto — ajusta aquí */
   object-fit: cover;
   object-position: center;
   transition: transform 0.5s ease;
@@ -270,8 +278,7 @@ img {
   padding: 16px 18px 20px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  text-align: center;
+  gap: 10px;
 }
 
 /* Nombre del producto */
@@ -285,7 +292,7 @@ img {
 
 /* Precio del producto */
 .product-price {
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   font-weight: 700;
   color: var(--color-text-price);
   letter-spacing: 0.02em;
@@ -293,7 +300,138 @@ img {
 
 
 /* ----------------------------------------------------------------
-   6. PIE DE PÁGINA — DIRECCIÓN Y TELÉFONO
+   6. CONTADOR DE CANTIDAD
+   ---------------------------------------------------------------- */
+.qty-control {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  overflow: hidden;
+  width: fit-content;
+  margin-top: 4px;
+}
+
+/* Botones − y + */
+.qty-btn {
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  background: var(--color-surface-alt);
+  border: none;
+  color: var(--color-text-secondary);
+  font-size: 1.3rem;
+  line-height: 1;
+  font-family: var(--font-body);
+  transition: background var(--transition), color var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qty-btn:hover {
+  background: var(--color-accent);
+  color: #0f0e0c;
+}
+
+.qty-btn:active {
+  transform: scale(0.9);
+}
+
+/* Número de cantidad */
+.qty-value {
+  min-width: 40px;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  padding: 0 6px;
+  background: transparent;
+  border-left: 1px solid var(--color-border);
+  border-right: 1px solid var(--color-border);
+  line-height: 36px;
+}
+
+
+/* ----------------------------------------------------------------
+   7. BARRA FLOTANTE DE PEDIDO
+   ---------------------------------------------------------------- */
+.order-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #1c1a15;
+  border-top: 1px solid var(--color-accent-dim);
+  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 24px;
+  /* Oculta hacia abajo por defecto */
+  transform: translateY(100%);
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: 100;
+}
+
+/* La clase .visible la añade JS cuando hay artículos */
+.order-bar.visible {
+  transform: translateY(0);
+}
+
+.order-bar-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.order-count {
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.order-total {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--color-text-price);
+  font-family: var(--font-display);
+}
+
+/* Botón verde de WhatsApp */
+.whatsapp-btn {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #25d366;
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-btn);
+  padding: 12px 24px;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  box-shadow: 0 4px 16px rgba(37, 211, 102, 0.35);
+  transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+}
+
+.whatsapp-btn:hover {
+  background: #1ebe5d;
+  transform: scale(1.04);
+  box-shadow: 0 6px 22px rgba(37, 211, 102, 0.5);
+}
+
+.whatsapp-btn:active {
+  transform: scale(0.97);
+}
+
+
+/* ----------------------------------------------------------------
+   8. PIE DE PÁGINA — DIRECCIÓN Y TELÉFONO
    ---------------------------------------------------------------- */
 .site-footer {
   background-color: var(--color-surface-alt);
@@ -324,7 +462,7 @@ img {
 
 
 /* ----------------------------------------------------------------
-   7. ANIMACIÓN DE ENTRADA DE LAS TARJETAS
+   9. ANIMACIÓN DE ENTRADA DE LAS TARJETAS
    ---------------------------------------------------------------- */
 @keyframes fadeUp {
   from {
@@ -339,7 +477,7 @@ img {
 
 
 /* ----------------------------------------------------------------
-   8. RESPONSIVE — AJUSTES PARA PANTALLAS PEQUEÑAS
+   10. RESPONSIVE — AJUSTES PARA PANTALLAS PEQUEÑAS
    ---------------------------------------------------------------- */
 @media (max-width: 600px) {
 
@@ -360,5 +498,17 @@ img {
     padding: 24px 16px;
     gap: 20px;
   }
-}
+
+  /* Barra flotante en columna en móvil */
+  .order-bar {
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px 20px;
+  }
+
+  /* Botón WhatsApp ocupa todo el ancho en móvil */
+  .whatsapp-btn {
+    width: 100%;
+    justify-content: center;
+  }
 }
