@@ -17,7 +17,6 @@ catBtns.forEach(function(btn) {
   });
 });
 
-
 /* ── 2. CONTADORES DE CANTIDAD ──────────────────────────── */
 cards.forEach(function(card) {
   var minusBtn = card.querySelector('.qty-minus');
@@ -25,9 +24,12 @@ cards.forEach(function(card) {
   var qtySpan  = card.querySelector('.qty-value');
 
   plusBtn.addEventListener('click', function() {
-    qtySpan.textContent = parseInt(qtySpan.textContent) + 1;
-    card.classList.add('has-qty');
-    updateOrderBar();
+    var current = parseInt(qtySpan.textContent);
+    if (current < 50) { // máximo 50 unidades
+      qtySpan.textContent = current + 1;
+      card.classList.add('has-qty');
+      updateOrderBar();
+    }
   });
 
   minusBtn.addEventListener('click', function() {
@@ -36,17 +38,9 @@ cards.forEach(function(card) {
       qtySpan.textContent = current - 1;
       if (current - 1 === 0) card.classList.remove('has-qty');
       updateOrderBar();
-      plusBtn.addEventListener('click', function() {
-  var current = parseInt(qtySpan.textContent);
-  if (current < 50) { // máximo 99 unidades
-    qtySpan.textContent = current + 1;
-    // ...
-  }
-});
     }
   });
 });
-
 
 /* ── 3. BARRA DE PEDIDO Y TOTAL ─────────────────────────── */
 var orderBar   = document.getElementById('order-bar');
@@ -72,21 +66,20 @@ function updateOrderBar() {
   orderBar.setAttribute('aria-hidden', t.items > 0 ? 'false' : 'true');
 }
 
-
 /* ── 4. MODAL — abrir / cerrar ──────────────────────────── */
 var backdrop   = document.getElementById('modal-backdrop');
 var modalClose = document.getElementById('modal-close');
 
-// Antes de abrir el modal
-var totalItems = calcTotals().items;
-if (totalItems === 0) {
-  alert('⚠️ Selecciona al menos un producto antes de pedir.');
-  return;
-}
-// Si hay productos, abrir modal...
-
 // Abrir modal al pulsar "Enviar pedido"
 waBtn.addEventListener('click', function() {
+  // ✅ VALIDACIÓN: verificar que haya productos seleccionados
+  var totalItems = calcTotals().items;
+  if (totalItems === 0) {
+    alert('⚠️ Selecciona al menos un producto antes de pedir.');
+    return; // No abre el modal
+  }
+  
+  // Si hay productos, abrir modal
   backdrop.classList.add('open');
   backdrop.setAttribute('aria-hidden', 'false');
   document.getElementById('input-nombre').focus();
@@ -103,7 +96,8 @@ backdrop.addEventListener('click', function(e) {
 function closeModal() {
   backdrop.classList.remove('open');
   backdrop.setAttribute('aria-hidden', 'true');
-  document.getElementById('modal-error').textContent = '';
+  var errorEl = document.getElementById('modal-error');
+  if (errorEl) errorEl.textContent = '';
 }
 
 /* ── 5. ENVIAR PEDIDO POR WHATSAPP ───────────────────────── */
