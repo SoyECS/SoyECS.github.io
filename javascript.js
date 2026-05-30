@@ -309,3 +309,329 @@ if (adminFabButton) {
     alert('🛠️ Panel de administración en construcción.\n\nPróximamente podrás añadir, editar y eliminar productos.');
   });
 }
+
+/* ================================================================
+   PANEL DE ADMINISTRACIÓN
+   ================================================================ */
+
+// Clave para guardar productos en localStorage
+const STORAGE_KEY = 'dairy_marco_productos';
+
+// Productos originales (copia de seguridad)
+const PRODUCTOS_ORIGINALES = [
+  { name: "Maní Cocinado", price: 130.00, category: "dulces", image: "img/maniC.jpg" },
+  { name: "Maní Molido", price: 110.00, category: "dulces", image: "img/maniC.jpg" },
+  { name: "Refresco de Lata Naranja", price: 250.00, category: "bebidas", image: "img/refrescoLataNaranja.jpg" }
+];
+
+// Variable para edición
+var editingIndex = null;
+
+/* ── CARGAR PRODUCTOS GUARDADOS ────────────────────────────── */
+function loadProductos() {
+  var guardados = localStorage.getItem(STORAGE_KEY);
+  if (guardados) {
+    return JSON.parse(guardados);
+  } else {
+    // Guardar productos originales por primera vez
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(PRODUCTOS_ORIGINALES));
+    return [...PRODUCTOS_ORIGINALES];
+  }
+}
+
+/* ── GUARDAR PRODUCTOS ─────────────────────────────────────── */
+function saveProductos(productos) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(productos));
+}
+
+/* ── RENDERIZAR LA PÁGINA CON LOS PRODUCTOS ───────────────── */
+function renderizarPagina() {
+  var productos = loadProductos();
+  var productGrid = document.getElementById('product-grid');
+  if (!productGrid) return;
+  
+  // Limpiar grid
+  productGrid.innerHTML = '';
+  
+  // Crear cada tarjeta de producto
+  productos.forEach(function(prod, index) {
+    var article = document.createElement('article');
+    article.className = 'product-card';
+    article.setAttribute('data-category', prod.category);
+    article.setAttribute('data-name', prod.name);
+    article.setAttribute('data-price', prod.price);
+    article.setAttribute('data-index', index);
+    
+    article.innerHTML = `
+      <img src="${prod.image}" alt="${prod.name}" class="product-img" />
+      <div class="product-info">
+        <h2 class="product-name">${prod.name}</h2>
+        <p class="product-price">$${prod.price.toFixed(2)}</p>
+        <div class="qty-control">
+          <button class="qty-btn qty-minus" aria-label="Restar">−</button>
+          <span class="qty-value">0</span>
+          <button class="qty-btn qty-plus" aria-label="Sumar">+</button>
+        </div>
+      </div>
+    `;
+    
+    productGrid.appendChild(article);
+  });
+  
+  // Re-inicializar los contadores (los eventos se pierden al re-renderizar)
+  inicializarContadores();
+}
+
+/* ── INICIALIZAR CONTADORES DESPUÉS DE RENDERIZAR ─────────── */
+function inicializarContadores() {
+  var todasLasCards = document.querySelectorAll('.product-card');
+  
+  todasLasCards.forEach(function(card) {
+    var minusBtn = card.querySelector('.qty-minus');
+    var plusBtn = card.querySelector('.qty-plus');
+    var qtySpan = card.querySelector('.qty-value');
+    
+    if (plusBtn) {
+      plusBtn.addEventListener('click', function() {
+        var current = parseInt(qtySpan.textContent);
+        if (current < 50) {
+          qtySpan.textContent = current + 1;
+          card.classList.add('has-qty');
+          if (typeof updateOrderBar === 'function') updateOrderBar();
+        }
+      });
+    }
+    
+    if (minusBtn) {
+      minusBtn.addEventListener('click', function() {
+        var current = parseInt(qtySpan.textContent);
+        if (current > 0) {
+          qtySpan.textContent = current - 1;
+          if (current - 1 === 0) card.classList.remove('has-qty');
+          if (typeof updateOrderBar === 'function') updateOrderBar();
+        }
+      });
+    }
+  });
+}
+
+/* ── RENDERIZAR LISTA DE PRODUCTOS EN EL PANEL ADMIN ──────── */
+function renderizarAdminLista() {
+  var container = document.getElementById('admin-products-container');
+  if (!container) return;
+  
+  var productos = loadProductos();
+  
+  if (productos.length === 0) {
+    container.innerHTML = '<p class="admin-loading">No hay productos. Añade uno nuevo.</p>';
+    return;
+  }
+  
+  var html = '';
+  productos.forEach(function(prod, index) {
+    html += `
+      <div class="admin-product-item" data-index="${index}">
+        <div class="admin-product-info">
+          <span class="admin-product-name">${prod.name}</span>
+          <span class="admin-product-price">$${prod.price.toFixed(2)}</span>
+          <span class="admin-product-category">${getCategoryName(prod.category)}</span>
+        </div>
+        <div class="admin-product-actions">
+          <button class="admin-edit-btn" data-index="${index}" data-action="edit">✏️</button>
+          <button class="admin-delete-btn" data-index="${index}" data-action="delete">🗑️</button>
+        </div>
+      </div>
+    `;
+  });
+  
+  container.innerHTML = html;
+  
+  // Agregar eventos a los botones
+  document.querySelectorAll('.admin-edit-btn').forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+      var idx = parseInt(btn.getAttribute('data-index'));
+      editarProducto(idx);
+    });
+  });
+  
+  document.querySelectorAll('.admin-delete-btn').forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+      var idx = parseInt(btn.getAttribute('data-index'));
+      eliminarProducto(idx);
+    });
+  });
+}
+
+function getCategoryName(cat) {
+  var categorias = { dulces: '🍬 Dulces', bebidas: '🥤 Bebidas', otros: '📦 Otros' };
+  return categorias[cat] || cat;
+}
+
+/* ── EDITAR PRODUCTO ──────────────────────────────────────── */
+function editarProducto(index) {
+  var productos = loadProductos();
+  var prod = productos[index];
+  
+  document.getElementById('admin-product-name').value = prod.name;
+  document.getElementById('admin-product-price').value = prod.price;
+  document.getElementById('admin-product-category').value = prod.category;
+  document.getElementById('admin-product-image').value = prod.image;
+  
+  editingIndex = index;
+  
+  document.getElementById('admin-add-btn').style.display = 'none';
+  document.getElementById('admin-update-btn').style.display = 'block';
+  document.getElementById('admin-cancel-btn').style.display = 'block';
+}
+
+/* ── ELIMINAR PRODUCTO ────────────────────────────────────── */
+function eliminarProducto(index) {
+  if (confirm('¿Eliminar este producto permanentemente?')) {
+    var productos = loadProductos();
+    productos.splice(index, 1);
+    saveProductos(productos);
+    renderizarAdminLista();
+    renderizarPagina();
+  }
+}
+
+/* ── AÑADIR PRODUCTO ──────────────────────────────────────── */
+function añadirProducto() {
+  var name = document.getElementById('admin-product-name').value.trim();
+  var price = parseFloat(document.getElementById('admin-product-price').value);
+  var category = document.getElementById('admin-product-category').value;
+  var image = document.getElementById('admin-product-image').value.trim();
+  
+  if (!name || isNaN(price) || price <= 0) {
+    alert('⚠️ Nombre y precio válido son obligatorios');
+    return;
+  }
+  
+  if (!image) {
+    image = 'https://placehold.co/400x300/2a1a0e/c8a96e?text=' + encodeURIComponent(name);
+  }
+  
+  var productos = loadProductos();
+  productos.push({ name: name, price: price, category: category, image: image });
+  saveProductos(productos);
+  
+  limpiarFormularioAdmin();
+  renderizarAdminLista();
+  renderizarPagina();
+}
+
+/* ── ACTUALIZAR PRODUCTO ──────────────────────────────────── */
+function actualizarProducto() {
+  if (editingIndex === null) return;
+  
+  var name = document.getElementById('admin-product-name').value.trim();
+  var price = parseFloat(document.getElementById('admin-product-price').value);
+  var category = document.getElementById('admin-product-category').value;
+  var image = document.getElementById('admin-product-image').value.trim();
+  
+  if (!name || isNaN(price) || price <= 0) {
+    alert('⚠️ Nombre y precio válido son obligatorios');
+    return;
+  }
+  
+  if (!image) {
+    image = 'https://placehold.co/400x300/2a1a0e/c8a96e?text=' + encodeURIComponent(name);
+  }
+  
+  var productos = loadProductos();
+  productos[editingIndex] = { name: name, price: price, category: category, image: image };
+  saveProductos(productos);
+  
+  limpiarFormularioAdmin();
+  renderizarAdminLista();
+  renderizarPagina();
+}
+
+function limpiarFormularioAdmin() {
+  document.getElementById('admin-product-name').value = '';
+  document.getElementById('admin-product-price').value = '';
+  document.getElementById('admin-product-category').value = 'dulces';
+  document.getElementById('admin-product-image').value = '';
+  
+  editingIndex = null;
+  document.getElementById('admin-add-btn').style.display = 'block';
+  document.getElementById('admin-update-btn').style.display = 'none';
+  document.getElementById('admin-cancel-btn').style.display = 'none';
+}
+
+function cancelarEdicion() {
+  limpiarFormularioAdmin();
+}
+
+/* ── RESTAURAR CATÁLOGO ORIGINAL ──────────────────────────── */
+function restaurarOriginal() {
+  if (confirm('⚠️ Esto eliminará todos los productos personalizados y restaurará el catálogo original. ¿Continuar?')) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(PRODUCTOS_ORIGINALES));
+    renderizarAdminLista();
+    renderizarPagina();
+  }
+}
+
+/* ── GUARDAR TODO (ya se guarda automáticamente) ──────────── */
+function guardarTodo() {
+  alert('✅ Los cambios ya están guardados automáticamente.');
+}
+
+/* ── ABRIR PANEL ADMIN ────────────────────────────────────── */
+function abrirPanelAdmin() {
+  var panelBackdrop = document.getElementById('admin-panel-backdrop');
+  if (panelBackdrop) {
+    renderizarAdminLista();
+    panelBackdrop.classList.add('open');
+    panelBackdrop.setAttribute('aria-hidden', 'false');
+  }
+}
+
+function cerrarPanelAdmin() {
+  var panelBackdrop = document.getElementById('admin-panel-backdrop');
+  if (panelBackdrop) {
+    panelBackdrop.classList.remove('open');
+    panelBackdrop.setAttribute('aria-hidden', 'true');
+  }
+  limpiarFormularioAdmin();
+}
+
+/* ── CONECTAR EVENTOS DEL PANEL ADMIN ─────────────────────── */
+function iniciarPanelAdmin() {
+  var addBtn = document.getElementById('admin-add-btn');
+  if (addBtn) addBtn.addEventListener('click', añadirProducto);
+  
+  var updateBtn = document.getElementById('admin-update-btn');
+  if (updateBtn) updateBtn.addEventListener('click', actualizarProducto);
+  
+  var cancelBtn = document.getElementById('admin-cancel-btn');
+  if (cancelBtn) cancelBtn.addEventListener('click', cancelarEdicion);
+  
+  var saveAllBtn = document.getElementById('admin-save-all-btn');
+  if (saveAllBtn) saveAllBtn.addEventListener('click', guardarTodo);
+  
+  var resetBtn = document.getElementById('admin-reset-btn');
+  if (resetBtn) resetBtn.addEventListener('click', restaurarOriginal);
+  
+  var panelClose = document.getElementById('admin-panel-close');
+  if (panelClose) panelClose.addEventListener('click', cerrarPanelAdmin);
+  
+  var panelBackdrop = document.getElementById('admin-panel-backdrop');
+  if (panelBackdrop) {
+    panelBackdrop.addEventListener('click', function(e) {
+      if (e.target === panelBackdrop) cerrarPanelAdmin();
+    });
+  }
+  
+  // Conectar el botón flotante con el panel
+  var adminFab = document.getElementById('admin-fab');
+  if (adminFab) {
+    adminFab.addEventListener('click', abrirPanelAdmin);
+  }
+  
+  // Renderizar la página con los productos guardados
+  renderizarPagina();
+}
+
+// Iniciar cuando el DOM esté listo
+document.addEventListener('DOMContentLoaded', iniciarPanelAdmin);
