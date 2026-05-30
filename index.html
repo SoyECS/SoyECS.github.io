@@ -370,6 +370,58 @@ if (sendBtn) {
   });
 }
 
+/* ── 6. GUARDAR Y CARGAR DATOS DEL CLIENTE ─────────────────── */
+
+// IDs de los campos que queremos guardar
+var camposCliente = ['input-nombre', 'input-tel', 'input-dir', 'input-tarjeta'];
+
+// Función para guardar todos los campos en localStorage
+function guardarDatosCliente() {
+  camposCliente.forEach(function(id) {
+    var campo = document.getElementById(id);
+    if (campo) {
+      localStorage.setItem(id, campo.value);
+    }
+  });
+}
+
+// Función para cargar los datos guardados
+function cargarDatosCliente() {
+  camposCliente.forEach(function(id) {
+    var campo = document.getElementById(id);
+    if (campo) {
+      var valorGuardado = localStorage.getItem(id);
+      if (valorGuardado) {
+        campo.value = valorGuardado;
+      }
+    }
+  });
+}
+
+// Guardar automáticamente cuando el usuario escribe en cualquier campo
+camposCliente.forEach(function(id) {
+  var campo = document.getElementById(id);
+  if (campo) {
+    campo.addEventListener('input', guardarDatosCliente);
+  }
+});
+
+// Cargar los datos cuando se abre el modal
+var modalBackdrop = document.getElementById('modal-backdrop');
+if (modalBackdrop) {
+  // Observar cuando el modal se abre
+  var observer = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+      if (mutation.attributeName === 'class') {
+        if (modalBackdrop.classList.contains('open')) {
+          cargarDatosCliente();
+        }
+      }
+    });
+  });
+  observer.observe(modalBackdrop, { attributes: true });
+}
+
   </script>
 
 </body>
