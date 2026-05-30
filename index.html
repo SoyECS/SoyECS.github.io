@@ -173,11 +173,14 @@
       <input class="field-input" id="input-tel" type="tel" placeholder="Ej. 5963-8868" autocomplete="tel" />
     </div>
 
-    <!-- Campo: Dirección -->
-    <div class="field-group">
-      <label class="field-label" for="input-dir">📍 Dirección de entrega</label>
-      <input class="field-input" id="input-dir" type="text" placeholder="Ej. Reparto José Martí, calle 13 #45" autocomplete="street-address" />
-    </div>
+    <!-- Campo: Dirección con botón de ayuda -->
+<div class="field-group">
+  <div style="display: flex; align-items: center; justify-content: space-between;">
+    <label class="field-label" for="input-dir">📍 Dirección de entrega</label>
+    <button type="button" class="help-btn" id="help-dir-btn" aria-label="Ayuda">❕</button>
+  </div>
+  <input class="field-input" id="input-dir" type="text" placeholder="Ej. Reparto José Martí, calle 13 #45" autocomplete="street-address" />
+</div>
 
     <!-- Campo: Número de Tarjeta (OBLIGATORIO) -->
     <div class="field-group">
@@ -422,7 +425,72 @@ if (modalBackdrop) {
   observer.observe(modalBackdrop, { attributes: true });
 }
 
-  </script>
+/* ── 7. BOTÓN DE AYUDA PARA LA DIRECCIÓN ───────────────────── */
+
+var helpBtn = document.getElementById('help-dir-btn');
+var tooltip = null;
+
+function mostrarAyudaDireccion(event) {
+  // Eliminar tooltip existente si lo hay
+  if (tooltip) {
+    tooltip.remove();
+    tooltip = null;
+  }
+
+  // Crear nuevo tooltip
+  tooltip = document.createElement('div');
+  tooltip.className = 'help-tooltip';
+  tooltip.innerHTML = '📌 <strong>Consejo para tu dirección:</strong><br><br>' +
+                      '• Escribe tu dirección lo más clara posible.<br>' +
+                      '• Incluye: calle, número, reparto, ciudad.<br>' +
+                      '• Agrega puntos de referencia (ej: cerca de la escuela).<br>' +
+                      '• Ejemplo: "Calle 13 #45 e/ 2da y 3ra, Reparto José Martí".<br><br>' +
+                      '✨ ¡Así recibirás tu pedido sin demoras! ✨';
+  
+  document.body.appendChild(tooltip);
+
+  // Posicionar el tooltip cerca del botón
+  var rect = helpBtn.getBoundingClientRect();
+  tooltip.style.top = (rect.bottom + 8) + 'px';
+  tooltip.style.left = (rect.left - 20) + 'px';
+
+  // Ocultar después de 5 segundos o al hacer clic fuera
+  setTimeout(function() {
+    if (tooltip) {
+      tooltip.classList.add('show');
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.classList.remove('show');
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.remove();
+              tooltip = null;
+            }
+          }, 250);
+        }
+      }, 4000);
+    }
+  }, 10);
+}
+
+if (helpBtn) {
+  helpBtn.addEventListener('click', mostrarAyudaDireccion);
+}
+
+// Cerrar tooltip si se hace clic en cualquier lugar fuera
+document.addEventListener('click', function(e) {
+  if (tooltip && e.target !== helpBtn && !helpBtn.contains(e.target)) {
+    tooltip.classList.remove('show');
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.remove();
+        tooltip = null;
+      }
+    }, 250);
+  }
+});
+    
+</script>
 
 </body>
 </html>
