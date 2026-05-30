@@ -248,34 +248,8 @@ img { display: block; max-width: 100%; }
   transform: translateY(20px);
   transition: transform .3s cubic-bezier(.34,1.56,.64,1);
   display: flex; flex-direction: column; gap: 18px;
-  max-height: 90vh;
-  overflow-y: auto;
-  scrollbar-width: thin;
 }
 
-/* Personalizar la barra de scroll (opcional, se ve mejor) */
-.modal::-webkit-scrollbar {
-  width: 6px;
-}
-
-.modal::-webkit-scrollbar-track {
-  background: var(--color-border);
-  border-radius: 3px;
-}
-
-.modal::-webkit-scrollbar-thumb {
-  background: var(--color-accent-dim);
-  border-radius: 3px;
-}
-
-.modal::-webkit-scrollbar-thumb:hover {
-  background: var(--color-accent);
-}
-
-/* Asegurar que el backdrop no bloquee el scroll natural */
-.modal-backdrop {
-  overflow-y: auto;
-}
 .modal-backdrop.open .modal { transform: translateY(0); }
 
 .modal-close {
