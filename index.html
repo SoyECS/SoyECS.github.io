@@ -4,136 +4,61 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- ============================================================
-       TÍTULO DE LA PESTAÑA DEL NAVEGADOR
-       Cambia "Mi Negocio" por el nombre real de tu negocio
-       ============================================================ -->
   <title>Dairy & Marco</title>
 
-  <!-- Fuentes de Google (no necesitas cambiar esto) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
-
-  <!-- Enlace al archivo de estilos -->
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
   <!-- ============================================================
-       SECCIÓN: CABECERA / HERO DEL NEGOCIO
+       CABECERA — foto del negocio y nombre
        ============================================================ -->
   <header class="site-header">
 
-    <!-- ----------------------------------------------------------
-         FOTO DEL NEGOCIO (banner / portada)
-         Reemplaza "https://placehold.co/1200x400/2d2d2d/888?text=Tu+Foto+Aquí"
-         con la ruta a tu propia imagen, por ejemplo: "imagenes/portada.jpg"
-         ---------------------------------------------------------- -->
     <div class="hero-image-wrapper">
-      <img
-        src="img/cover.jpg"
-        alt="Foto del negocio"
-        class="hero-image"
-      />
-      <!-- Capa oscura decorativa sobre la imagen (se controla desde CSS) -->
+      <img src="img/cover.jpg" alt="Foto del negocio" class="hero-image" />
       <div class="hero-overlay"></div>
     </div>
 
-    <!-- ----------------------------------------------------------
-         NOMBRE DEL NEGOCIO
-         Cambia el texto entre las etiquetas <span> por el nombre real
-         ---------------------------------------------------------- -->
     <div class="business-name-wrap">
       <h1 class="business-name">
-        <span class="name-main">Dairy & Marco</span>
+        <span class="name-main">Dairy &amp; Marco</span>
         <span class="name-sub"></span>
       </h1>
     </div>
 
   </header>
-  <!-- FIN: CABECERA -->
 
 
   <!-- ============================================================
-       SECCIÓN: MENÚ DE CATEGORÍAS
-       Los botones cambian la categoría activa (Comida / Bebidas / Otros)
-       NO necesitas tocar este bloque salvo que quieras renombrar alguna
-       categoría; si lo haces, también actualiza el atributo data-category
-       en los artículos de productos más abajo.
+       MENÚ DE CATEGORÍAS
        ============================================================ -->
   <nav class="category-nav" role="tablist" aria-label="Categorías del menú">
-
-    <!-- Botón Comida — data-target debe coincidir con data-category de los productos -->
-    <button
-      class="cat-btn active"
-      data-target="dulces"
-      role="tab"
-      aria-selected="true"
-      aria-controls="product-grid"
-    >
-      Dulces
-    </button>
-
-    <!-- Botón Bebidas -->
-    <button
-      class="cat-btn"
-      data-target="bebidas"
-      role="tab"
-      aria-selected="false"
-      aria-controls="product-grid"
-    >
-      Bebidas
-    </button>
-
-    <!-- Botón Otros -->
-    <button
-      class="cat-btn"
-      data-target="otros"
-      role="tab"
-      aria-selected="false"
-      aria-controls="product-grid"
-    >
-      Otros
-    </button>
-
+    <button class="cat-btn active" data-target="dulces"  role="tab" aria-selected="true"  aria-controls="product-grid">Dulces</button>
+    <button class="cat-btn"        data-target="bebidas" role="tab" aria-selected="false" aria-controls="product-grid">Bebidas</button>
+    <button class="cat-btn"        data-target="otros"   role="tab" aria-selected="false" aria-controls="product-grid">Otros</button>
   </nav>
-  <!-- FIN: MENÚ DE CATEGORÍAS -->
 
 
   <!-- ============================================================
-       SECCIÓN: CUADRÍCULA DE PRODUCTOS
-       Cada <article> es un producto. Puedes copiar y pegar un bloque
-       completo para agregar más productos.
-       
-       NUEVA ESTRUCTURA: cada tarjeta ahora tiene:
-         - data-category  → "dulces", "bebidas" u "otros"
-         - data-name      → nombre del producto (aparece en el mensaje de WhatsApp)
-         - data-price     → precio en número sin símbolo (ej: 130.00)
-         - Controles de cantidad (+, -) para hacer pedidos
+       CUADRÍCULA DE PRODUCTOS
+       Cada <article> necesita:
+         data-category → "dulces", "bebidas" u "otros"
+         data-name     → nombre en el mensaje de WhatsApp
+         data-price    → precio numérico sin símbolo (ej: 130.00)
        ============================================================ -->
   <main id="product-grid" class="product-grid" role="tabpanel">
 
-    <!-- ==========================================================
-         ★ PRODUCTOS — CATEGORÍA: DULCES
-         data-category="dulces" los vincula al botón Dulces
-         ========================================================== -->
+    <!-- ── DULCES ─────────────────────────────────────────────── -->
 
-    <!-- PRODUCTO 1 — DULCES -->
     <article class="product-card" data-category="dulces" data-name="Maní Cocinado" data-price="130.00">
-      <!-- Imagen del producto:
-           Reemplaza el src por la ruta de tu imagen -->
-      <img
-        src="img/maniC.jpg"
-        alt="Maní Cocinado"
-        class="product-img"
-      />
+      <img src="img/maniC.jpg" alt="Maní Cocinado" class="product-img" />
       <div class="product-info">
-        <!-- Nombre del producto -->
         <h2 class="product-name">Maní Cocinado</h2>
-        <!-- Precio del producto -->
         <p class="product-price">$130.00</p>
-        <!-- Contador de cantidad — NO modificar esta estructura -->
         <div class="qty-control">
           <button class="qty-btn qty-minus" aria-label="Restar">−</button>
           <span class="qty-value">0</span>
@@ -141,14 +66,9 @@
         </div>
       </div>
     </article>
-    
-    <!-- PRODUCTO 2 — DULCES -->
+
     <article class="product-card" data-category="dulces" data-name="Maní Molido" data-price="110.00">
-      <img
-        src="img/maniC.jpg"
-        alt="Maní Molido"
-        class="product-img"
-      />
+      <img src="img/maniC.jpg" alt="Maní Molido" class="product-img" />
       <div class="product-info">
         <h2 class="product-name">Maní Molido</h2>
         <p class="product-price">$110.00</p>
@@ -160,17 +80,10 @@
       </div>
     </article>
 
-    <!-- ==========================================================
-         ★ PRODUCTOS — CATEGORÍA: BEBIDAS
-         ========================================================== -->
+    <!-- ── BEBIDAS ────────────────────────────────────────────── -->
 
-    <!-- PRODUCTO 1 — BEBIDAS -->
     <article class="product-card" data-category="bebidas" data-name="Refresco de Lata Naranja" data-price="250.00">
-      <img
-        src="img/refrescoLataNaranja.jpg"
-        alt="Refresco de Lata Naranja"
-        class="product-img"
-      />
+      <img src="img/refrescoLataNaranja.jpg" alt="Refresco de Lata Naranja" class="product-img" />
       <div class="product-info">
         <h2 class="product-name">Refresco de Lata Naranja</h2>
         <p class="product-price">$250.00</p>
@@ -182,17 +95,10 @@
       </div>
     </article>
 
-    <!-- ==========================================================
-         ★ PRODUCTOS — CATEGORÍA: OTROS
-         ========================================================== -->
+    <!-- ── OTROS ──────────────────────────────────────────────── -->
 
-    <!-- PRODUCTO 1 — OTROS (ejemplo con datos de relleno, reemplázalos) -->
     <article class="product-card" data-category="otros" data-name="Producto de Ejemplo" data-price="100.00">
-      <img
-        src="https://placehold.co/400x300/1a2a0e/96c86e?text=Ejemplo"
-        alt="Ejemplo de producto"
-        class="product-img"
-      />
+      <img src="https://placehold.co/400x300/1a2a0e/96c86e?text=Ejemplo" alt="Ejemplo de producto" class="product-img" />
       <div class="product-info">
         <h2 class="product-name">Producto de Ejemplo</h2>
         <p class="product-price">$100.00</p>
@@ -203,37 +109,22 @@
         </div>
       </div>
     </article>
-    
+
   </main>
-  <!-- FIN: CUADRÍCULA DE PRODUCTOS -->
 
 
   <!-- ============================================================
        BARRA FLOTANTE DE PEDIDO
-       Aparece automáticamente cuando hay al menos 1 producto seleccionado.
-       El botón "Enviar pedido" abre WhatsApp con el resumen.
+       Aparece cuando hay al menos 1 producto seleccionado.
+       ★ Cambia data-phone por tu número: código de país + número sin espacios.
+         Cuba ejemplo: "5359638868"
        ============================================================ -->
   <div class="order-bar" id="order-bar" aria-live="polite" aria-hidden="true">
     <div class="order-bar-info">
-      <!-- Muestra cuántos artículos hay en el pedido -->
       <span class="order-count" id="order-count">0 artículos</span>
-      <!-- Muestra el total calculado -->
       <span class="order-total" id="order-total">$0.00</span>
     </div>
-
-    <!-- ══════════════════════════════════════════════════════════
-         BOTÓN DE WHATSAPP
-         ▸ Cambia el número en el atributo data-phone.
-           Formato: código de país + número, SIN espacios ni símbolos.
-           Ejemplo México (55) 1234-5678  →  data-phone="5215512345678"
-           Ejemplo Argentina (11) 1234-5678 → data-phone="541112345678"
-         ══════════════════════════════════════════════════════════ -->
-    <button
-      class="whatsapp-btn"
-      id="whatsapp-btn"
-      data-phone="5359638868"
-    >
-      <!-- Icono SVG de WhatsApp (no necesitas modificarlo) -->
+    <button class="whatsapp-btn" id="whatsapp-btn" data-phone="5359638868">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
         <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
       </svg>
@@ -243,33 +134,83 @@
 
 
   <!-- ============================================================
-       SECCIÓN: PIE DE PÁGINA — DIRECCIÓN Y TELÉFONO
-       Cambia los textos dentro de los <span> por tus datos reales
+       MODAL — DATOS DEL CLIENTE
+       Se abre al pulsar "Enviar pedido". El cliente llena sus datos
+       y luego se envía todo por WhatsApp.
+
+       PARA AGREGAR MÁS CAMPOS: copia un bloque <div class="field-group">
+       y pégalo aquí arriba del párrafo <p class="modal-error">.
+       Cambia el id, el label y el placeholder.
+       Si el campo es obligatorio, agrégalo también en la validación del JS.
+       ============================================================ -->
+  <div class="modal-backdrop" id="modal-backdrop" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+
+      <button class="modal-close" id="modal-close" aria-label="Cerrar">✕</button>
+
+      <h2 class="modal-title" id="modal-title">Tus datos de entrega</h2>
+      <p class="modal-subtitle">Necesitamos estos datos para enviarte tu pedido.</p>
+
+      <!-- Campo: Nombre -->
+      <div class="field-group">
+        <label class="field-label" for="input-nombre">👤 Tu nombre</label>
+        <input class="field-input" id="input-nombre" type="text" placeholder="Ej. María García" autocomplete="name" />
+      </div>
+
+      <!-- Campo: Teléfono -->
+      <div class="field-group">
+        <label class="field-label" for="input-tel">📞 Tu número de teléfono</label>
+        <input class="field-input" id="input-tel" type="tel" placeholder="Ej. 5963-8868" autocomplete="tel" />
+      </div>
+
+      <!-- Campo: Dirección -->
+      <div class="field-group">
+        <label class="field-label" for="input-dir">📍 Dirección de entrega</label>
+        <input class="field-input" id="input-dir" type="text" placeholder="Ej. Reparto José Martí, calle 13 #45" autocomplete="street-address" />
+      </div>
+
+      <!-- ──────────────────────────────────────────────────────
+           CAMPO EXTRA: Notas del pedido (opcional)
+           Para hacerlo obligatorio: añade  || !notas  en la
+           validación del JS (busca el comentario marcado con ★)
+           ────────────────────────────────────────────────────── -->
+      <div class="field-group">
+        <label class="field-label" for="input-notas">📝 Notas del pedido (opcional)</label>
+        <input class="field-input" id="input-notas" type="text" placeholder="Ej. Sin cebolla, entregar después de las 3pm..." />
+      </div>
+
+      <!-- Mensaje de error — aparece si faltan campos obligatorios -->
+      <p class="modal-error" id="modal-error" aria-live="assertive"></p>
+
+      <!-- Botón de envío -->
+      <button class="modal-send-btn" id="modal-send-btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+        Enviar pedido por WhatsApp
+      </button>
+
+    </div>
+  </div>
+
+
+  <!-- ============================================================
+       PIE DE PÁGINA
        ============================================================ -->
   <footer class="site-footer">
-
-    <!-- Icono + dirección -->
     <p class="footer-item">
       <span class="footer-icon">📍</span>
-      <!-- CAMBIA AQUÍ la dirección de tu negocio -->
       <span>Reparto José Martí</span>
     </p>
-
-    <!-- Icono + teléfono -->
     <p class="footer-item">
       <span class="footer-icon">📞</span>
-      <!-- CAMBIA AQUÍ tu número de teléfono -->
-      <span>+53 59638868</span>                      
+      <span>+53 59638868</span>
     </p>
-
   </footer>
-  <!-- FIN: PIE DE PÁGINA -->
 
 
   <!-- ============================================================
        JAVASCRIPT
-       Maneja: filtro de categorías, contadores y botón de WhatsApp.
-       Solo debes tocar la línea marcada con ★ si cambias el número.
        ============================================================ -->
   <script>
 
@@ -285,7 +226,6 @@
         });
         btn.classList.add('active');
         btn.setAttribute('aria-selected', 'true');
-
         var target = btn.getAttribute('data-target');
         cards.forEach(function(card) {
           card.classList.toggle('hidden', card.getAttribute('data-category') !== target);
@@ -296,27 +236,21 @@
 
     /* ── 2. CONTADORES DE CANTIDAD ──────────────────────────── */
     cards.forEach(function(card) {
-      var minusBtn  = card.querySelector('.qty-minus');
-      var plusBtn   = card.querySelector('.qty-plus');
-      var qtySpan   = card.querySelector('.qty-value');
+      var minusBtn = card.querySelector('.qty-minus');
+      var plusBtn  = card.querySelector('.qty-plus');
+      var qtySpan  = card.querySelector('.qty-value');
 
-      // Botón "+" — suma 1 al contador
       plusBtn.addEventListener('click', function() {
-        var current = parseInt(qtySpan.textContent);
-        qtySpan.textContent = current + 1;
-        // Resaltar la tarjeta cuando tiene cantidad > 0
+        qtySpan.textContent = parseInt(qtySpan.textContent) + 1;
         card.classList.add('has-qty');
-        updateOrderBar(); // recalcula el resumen
+        updateOrderBar();
       });
 
-      // Botón "−" — resta 1, mínimo 0
       minusBtn.addEventListener('click', function() {
         var current = parseInt(qtySpan.textContent);
         if (current > 0) {
           qtySpan.textContent = current - 1;
-          if (current - 1 === 0) {
-            card.classList.remove('has-qty');
-          }
+          if (current - 1 === 0) card.classList.remove('has-qty');
           updateOrderBar();
         }
       });
@@ -324,72 +258,104 @@
 
 
     /* ── 3. BARRA DE PEDIDO Y TOTAL ─────────────────────────── */
-    var orderBar    = document.getElementById('order-bar');
-    var orderCount  = document.getElementById('order-count');
-    var orderTotal  = document.getElementById('order-total');
-    var waBtn       = document.getElementById('whatsapp-btn');
+    var orderBar   = document.getElementById('order-bar');
+    var orderCount = document.getElementById('order-count');
+    var orderTotal = document.getElementById('order-total');
+    var waBtn      = document.getElementById('whatsapp-btn');
+
+    function calcTotals() {
+      var items = 0, price = 0;
+      cards.forEach(function(card) {
+        var qty = parseInt(card.querySelector('.qty-value').textContent);
+        items += qty;
+        price += qty * parseFloat(card.getAttribute('data-price'));
+      });
+      return { items: items, price: price };
+    }
 
     function updateOrderBar() {
-      var totalItems = 0;
-      var totalPrice = 0;
-
-      // Recorrer todos los productos y sumar cantidades y precios
-      cards.forEach(function(card) {
-        var qty   = parseInt(card.querySelector('.qty-value').textContent);
-        var price = parseFloat(card.getAttribute('data-price'));
-        totalItems += qty;
-        totalPrice += qty * price;
-      });
-
-      // Actualizar los textos de la barra
-      orderCount.textContent = totalItems + (totalItems === 1 ? ' artículo' : ' artículos');
-      orderTotal.textContent = '$' + totalPrice.toFixed(2);
-
-      // Mostrar u ocultar la barra según si hay artículos
-      if (totalItems > 0) {
-        orderBar.classList.add('visible');
-        orderBar.setAttribute('aria-hidden', 'false');
-      } else {
-        orderBar.classList.remove('visible');
-        orderBar.setAttribute('aria-hidden', 'true');
-      }
+      var t = calcTotals();
+      orderCount.textContent = t.items + (t.items === 1 ? ' artículo' : ' artículos');
+      orderTotal.textContent = '$' + t.price.toFixed(2);
+      orderBar.classList.toggle('visible', t.items > 0);
+      orderBar.setAttribute('aria-hidden', t.items > 0 ? 'false' : 'true');
     }
 
 
-    /* ── 4. BOTÓN DE WHATSAPP ───────────────────────────────── */
+    /* ── 4. MODAL — abrir / cerrar ──────────────────────────── */
+    var backdrop   = document.getElementById('modal-backdrop');
+    var modalClose = document.getElementById('modal-close');
+
+    // Abrir modal al pulsar "Enviar pedido"
     waBtn.addEventListener('click', function() {
+      backdrop.classList.add('open');
+      backdrop.setAttribute('aria-hidden', 'false');
+      document.getElementById('input-nombre').focus();
+    });
 
-      // ★ El número se lee del atributo data-phone del botón en el HTML.
-      //   Cámbialo directamente en el HTML (busca data-phone="...").
-      var phone = waBtn.getAttribute('data-phone');
+    // Cerrar al pulsar la X
+    modalClose.addEventListener('click', closeModal);
 
-      // Construir la lista de productos seleccionados
-      var lines = [];
+    // Cerrar al hacer clic fuera del cuadro
+    backdrop.addEventListener('click', function(e) {
+      if (e.target === backdrop) closeModal();
+    });
+
+    function closeModal() {
+      backdrop.classList.remove('open');
+      backdrop.setAttribute('aria-hidden', 'true');
+      document.getElementById('modal-error').textContent = '';
+    }
+
+
+    /* ── 5. ENVIAR PEDIDO POR WHATSAPP ──────────────────────── */
+    document.getElementById('modal-send-btn').addEventListener('click', function() {
+
+      var nombre = document.getElementById('input-nombre').value.trim();
+      var tel    = document.getElementById('input-tel').value.trim();
+      var dir    = document.getElementById('input-dir').value.trim();
+      var notas  = document.getElementById('input-notas').value.trim();
+      var errorEl = document.getElementById('modal-error');
+
+      // ★ VALIDACIÓN — campos obligatorios
+      // Para hacer "notas" obligatorio agrega:  || !notas
+      if (!nombre || !tel || !dir) {
+        errorEl.textContent = '⚠️ Por favor completa tu nombre, teléfono y dirección.';
+        return;
+      }
+      errorEl.textContent = '';
+
+      // Construir lista de productos seleccionados
+      var lineas = [];
       cards.forEach(function(card) {
-        var qty  = parseInt(card.querySelector('.qty-value').textContent);
+        var qty = parseInt(card.querySelector('.qty-value').textContent);
         if (qty > 0) {
-          var name  = card.getAttribute('data-name');
-          var price = parseFloat(card.getAttribute('data-price'));
-          var sub   = (qty * price).toFixed(2);
-          lines.push(qty + 'x ' + name + ' — $' + sub);
+          lineas.push(qty + 'x ' + card.getAttribute('data-name'));
         }
       });
 
-      // Calcular total general
-      var grandTotal = 0;
-      cards.forEach(function(card) {
-        grandTotal += parseInt(card.querySelector('.qty-value').textContent)
-                    * parseFloat(card.getAttribute('data-price'));
-      });
+      var total = calcTotals().price;
 
-      // Armar el mensaje completo
-      var msg = '¡Hola! Quisiera hacer el siguiente pedido:\n\n'
-              + lines.join('\n')
-              + '\n\n*Total: $' + grandTotal.toFixed(2) + '*';
+      // Armar el mensaje con el formato solicitado
+      var msg =
+        'Cliente: "' + nombre + '"\n' +
+        'Número: "' + tel + '"\n' +
+        'Dirección: "' + dir + '"\n';
 
-      // Abrir WhatsApp con el mensaje pre-escrito
-      var url = 'https://wa.me/' + phone + '?text=' + encodeURIComponent(msg);
+      // Agregar notas solo si el cliente escribió algo
+      if (notas) {
+        msg += 'Notas: "' + notas + '"\n';
+      }
+
+      msg +=
+        '\nPedido:\n' +
+        lineas.join('\n') +
+        '\n\nTotal: $' + total.toFixed(2);
+
+      var phone = waBtn.getAttribute('data-phone');
+      var url   = 'https://wa.me/' + phone + '?text=' + encodeURIComponent(msg);
       window.open(url, '_blank');
+      closeModal();
     });
 
   </script>
