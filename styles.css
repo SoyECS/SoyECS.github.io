@@ -139,7 +139,7 @@ img { display: block; max-width: 100%; }
 }
 .product-card:hover .product-img { transform: scale(1.06); }
 
-.product-info { padding: 16px 18px 20px; display: flex; flex-direction: column; gap: 8px; }
+.product-info { padding: 16px 18px 20px; display: flex; flex-direction: column; gap: 8px; text-align: center;}
 .product-name { font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; line-height: 1.3; }
 .product-price { font-size: 1.2rem; font-weight: 700; color: var(--color-text-price); }
 
@@ -152,6 +152,8 @@ img { display: block; max-width: 100%; }
   border-radius: 10px; overflow: hidden;
   width: fit-content; margin-top: 6px;
   background: var(--color-surface-alt);
+  margin-left: auto;
+  margin-right: auto;
 }
 /* Botones − y + : más anchos y altos para facilitar el toque */
 .qty-btn {
