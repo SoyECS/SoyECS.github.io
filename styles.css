@@ -133,7 +133,7 @@ img { display: block; max-width: 100%; }
 .product-card.has-qty { border-color: var(--color-accent); box-shadow: 0 0 0 2px rgba(200,148,58,.3), var(--shadow-hover); }
 
 .product-img {
-  width: 100%; height: 200px; /* ← altura de las fotos de producto */
+  width: 100%; height: 300px; /* ← altura de las fotos de producto */
   object-fit: cover; object-position: center;
   transition: transform .5s ease;
 }
